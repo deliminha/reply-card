@@ -16,9 +16,9 @@ class Endereco(models.Model):
 
     # Formatacao do nome da classe
     class Meta:
-        verbose_name = 'Endereco'
+        verbose_name        = 'Endereco'
         verbose_name_plural = 'Enderecos'
-        ordering = ['estado','cidade','bairro']
+        ordering            = ['estado','cidade','bairro']
 
 class Unidade(models.Model):
     nome        = models.CharField('Nome',        max_length=60)
@@ -27,10 +27,10 @@ class Unidade(models.Model):
 
     # Retorna o nome dos atributos
     def __str__(self):
-        return self.nome + ', ' + self.ndescricao
+        return self.nome + ', ' + self.descricao
 
     # Formatacao do nome da classe
     class Meta:
-        verbose_name = 'Unidade'
+        verbose_name        = 'Unidade'
         verbose_name_plural = 'Unidades'
-        ordering = ['nome', 'descricao']
+        ordering            = ['nome', 'descricao']

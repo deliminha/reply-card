@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
@@ -13,6 +15,7 @@ def index(request):
 
 class UnidadeCreate(CreateView):
     model = Unidade
+    extra_context = {"operacao": "Cadastro"}
     fields = ['nome', 'descricao', 'endereco']
     template_name = 'unidades/form.html'
 
@@ -24,10 +27,16 @@ class UnidadeDetail(DetailView):
 
 class UnidadeUpdate(UpdateView):
     model = Unidade
+    extra_context = {"operacao": "Atualização"}
     fields = ['nome', 'descricao', 'endereco']
     template_name = 'unidades/form.html'
 
 
 class UnidadeDelete(DeleteView):
     model = Unidade
+    success_url = reverse_lazy('unidade-list')
     template_name = 'unidades/delete.html'
+
+class UnidadeList(ListView):
+    model = Unidade
+    template_name = 'unidades/list.html'

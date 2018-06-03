@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+<head>
+    <title>{% block title %}{% endblock title %}</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/icons/16/web.png' %}">
+    {% include 'base_css.html' %}
+</head>
+<body>
+
+<!--Header-part-->
+<div id="header">
+    <h1><a href="dashboard.html"></a></h1>
+</div>
+<!--close-Header-part-->
+
+<!--top-Header-messaages-->
+<div class="btn-group rightzero"><a class="top_message tip-left" title="Manage Files"><i class="icon-file"></i></a> <a
+        class="top_message tip-bottom" title="Manage Users"><i class="icon-user"></i></a> <a
+        class="top_message tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span
+        class="label label-important">5</span></a> <a class="top_message tip-bottom" title="Manage Orders"><i
+        class="icon-shopping-cart"></i></a></div>
+<!--close-top-Header-messaages-->
+
+<!--top-Header-menu-->
+<div id="user-nav" class="navbar navbar-inverse">
+    <ul class="nav">
+        <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
+        <li class=""><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">Sair</span></a>
+        </li>
+    </ul>
+</div>
+
+<!--close-top-Header-menu-->
+
+<div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+    <ul>
+        <li class="active"><a href="{% url "index" %}"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
+        <li><a href="{% url "unidade-list" %}"><i class="icon icon-signal"></i> <span>Unidades</span></a></li>
+        <li class="submenu"><a href="#"><i class="icon icon-th-list"></i> <span>Turmas</span></a>
+            <ul>
+                <li><a href="#">Gerenciamento de Turmas</a></li>
+                <li><a href="#">Alunos em Turmas</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+{% block body %}
+{% endblock body %}
+<div class="row-fluid">
+    <div id="footer" class="span12"> 2018 &copy; <a href="http://www.agilsistemas.net.br"> Agil Sistemas</a>
+    </div>
+</div>
+{% include 'base_js.html' %}
+</body>
+</html>
