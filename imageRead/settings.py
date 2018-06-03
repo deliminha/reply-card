@@ -39,7 +39,8 @@ DEFAULT_APPS = [
     'django.contrib.staticfiles',
 ]
 LOCAL_APPS = [
-    'imageRead.core'
+    'imageRead.core',
+    'imageRead.unidade'
 ]
 
 INSTALLED_APPS = LOCAL_APPS + DEFAULT_APPS
