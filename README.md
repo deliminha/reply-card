@@ -1,33 +1,32 @@
-# reply-card
+# AGIL Sistemas
 
-Repositório para testes da biblioteca OpenCV, 
-o projeto destinasse a identificar elementos através da WebCan 
+## Reply Card
+
+Este projeto foi gerado com [Django](https://github.com/django/django) version 2.0.
 
 #### Set Up
 Clone esse projeto:
 
-~~~~
-$ git clone https://github.com/I-am-Miguel/reply-card.git
-~~~~
+`$ https://github.com/I-am-Miguel/reply-card.git`
 
+`$ cd reply-card`
 
-Certifique-se que as dependencias do projeto se encontram atualizadas:
-~~~~
-sudo apt-get install libopencv-dev python-opencv
-~~~~
+Crie um ambiente virtual e instale as dependências:
+`$ virtualenv venv`
 
-#### Rodando localmente
-Você primeiramente deve adicionar um ambiente virtual
-~~~~
-$ virtualenv venv
-$ source /venv/bin/activate
-~~~~
+`(venv)$ source /venv/bin/activate`
 
-Instalar as dependências do projeto
+`(venv)$ pip install -r requeriments.txt`
+
+## Servidor de desenvolvimento
+Setup banco de dados:
+~~~~bash
+(venv)$ python manage.py makemigrations
+(venv)$ python manage.py migrate
 ~~~~
-(venv)$ pip install -r requirements.txt
+Rodando a aplicação
+~~~~bash
+$ python manage.py runserver
 ~~~~
-E por fim, rodar o projeto localmente
-~~~~
-(venv)$ python WebCan.py
-~~~~
+Agora você pode ir até [http://localhost:8000](http://localhost:8000).
+fetch
