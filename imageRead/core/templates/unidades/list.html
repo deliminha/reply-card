@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}AGIL{% endblock %}
+
+{% block body %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb">
+                <a href="{% url "index" %}" title="Pagina Inicial" class="tip-bottom">
+                    <i class="icon-home"></i> Inicial
+                </a>
+                <a href="{% url "unidade-list" %}" class="current">Unidades
+                </a>
+            </div>
+            <h1>Unidades</h1>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title">
+                            <span class="icon"><i class="icon-th"></i></span>
+                            <h5>Unidades vinculadas</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <table class="table table-bordered data-table">
+                                <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Descrição</th>
+                                    <th>Endereço</th>
+                                    <th>Configuração</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for unidade in object_list %}
+                                    <tr class="gradeX">
+                                        <td>{{ unidade.nome }}</td>
+                                        <td>{{ unidade.descricao }}</td>
+                                        <td>{{ unidade.endereco }}</td>
+                                        <td style="text-align: center">
+                                            <a href="{% url "unidade-update" unidade.pk %}"
+                                               class="btn btn-primary btn-mini">Editar</a>
+                                            <a href="{% url "unidade-delete" unidade.pk %}"
+                                               class="btn btn-danger btn-mini">Remover</a>
+                                        </td>
+                                    </tr>
+
+
+                                {% empty %}
+                                    <tr class="gradeX">
+                                        <td colspan="4" style="text-align: center">
+                                            Usuário não está vinculado a nenhuma unidade
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

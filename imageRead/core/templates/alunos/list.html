@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}AGIL{% endblock %}
+
+{% block body %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb">
+                <a href="{% url "index" %}" title="Pagina Inicial" class="tip-bottom">
+                    <i class="icon-home"></i> Inicial
+                </a>
+                <a href="{% url "aluno-list" %}" class="current">Alunos
+                </a>
+            </div>
+            <h1>Alunos</h1>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title">
+                            <span class="icon"><i class="icon-th"></i></span>
+                            <h5>Alunos Cadastrados</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <table class="table table-bordered data-table">
+                                <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Matricula</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for aluno in object_list %}
+                                    <tr class="gradeX">
+                                        <td>{{ aluno.nome }}</td>
+                                        <td>{{ aluno.matricula }}</td>
+                                        <td style="text-align: center">
+                                            <a href="{% url "aluno-update" aluno.pk %}"
+                                               class="btn btn-primary btn-mini">Editar</a>
+                                            <a href="{% url "aluno-delete" aluno.pk %}"
+                                               class="btn btn-danger btn-mini">Remover</a>
+                                        </td>
+                                    </tr>
+
+
+                                {% empty %}
+                                    <tr class="gradeX">
+                                        <td colspan="4" style="text-align: center">
+                                            Turma não possui alunos matriculados
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
