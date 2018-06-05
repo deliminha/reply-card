@@ -10,11 +10,11 @@
                 <a href="{% url "index" %}" title="Pagina Inicial" class="tip-bottom">
                     <i class="icon-home"></i> Inicial
                 </a>
-                <a href="{% url "unidade-list" %}" class="current">Unidades
+                <a href="{% url "aluno-list" %}" class="current">Alunos
                 </a>
                 <a href="#" class="current">{{ operacao }}</a>
             </div>
-            <h1>{{ operacao }} de Unidade</h1>
+            <h1>{{ operacao }} de Alunos</h1>
 
         </div>
 
@@ -26,7 +26,7 @@
 								<span class="icon">
 									<i class="icon-pencil"></i>
 								</span>
-                            <h5>Dados da Unidade</h5>
+                            <h5>Dados do Aluno</h5>
                         </div>
                         <div class="widget-content nopadding">
                             <form action="" id="form-wizard" class="form-horizontal" method="post">{% csrf_token %}
