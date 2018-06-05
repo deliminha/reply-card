@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}AGIL{% endblock %}
+
+{% block body %}
+
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb">
+                <a href="{% url "index" %}" title="Pagina Inicial" class="tip-bottom">
+                    <i class="icon-home"></i> Inicial
+                </a>
+                <a href="{% url "turma-list" %}" class="current">Turmas
+                </a>
+                <a href="#" class="current">{{ operacao }}</a>
+            </div>
+            <h1>Atualização da Turma</h1>
+
+        </div>
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title">
+								<span class="icon">
+									<i class="icon-pencil"></i>
+								</span>
+                            <h5>Dados da Turma</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <form action="" id="form-wizard" class="form-horizontal" method="post">{% csrf_token %}
+                                <div id="form-wizard-1" class="step">
+                                    <div class="control-group">
+
+                                        {{ form.as_p }}
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <input id="back" class="btn btn-primary" type="reset" value="Voltar"/>
+                                    <input id="next" class="btn btn-primary" type="submit" value="Salvar"/>
+                                    <div id="status"></div>
+                                </div>
+                                <div id="submitted"></div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock body %}

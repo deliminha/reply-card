@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}AGIL{% endblock %}
+
+{% block body %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb">
+                <a href="{% url "index" %}" title="Pagina Inicial" class="tip-bottom">
+                    <i class="icon-home"></i> Inicial
+                </a>
+                <a href="{% url "turma-list" %}" class="current">Turmas
+                </a>
+            </div>
+            <h1>Turmas</h1>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title">
+                            <span class="icon"><i class="icon-th"></i></span>
+                            <h5>Turmas Cadastradas</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <table class="table table-bordered data-table">
+                                <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Descrição</th>
+                                    <th>Ano</th>
+                                    <th>Qtd Alunos Matriculados</th>
+                                    <th>Provas Aplicadas</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for turma in object_list %}
+                                    <tr class="gradeX">
+                                        <td>{{ turma.nome }}</td>
+                                        <td>{{ turma.descricao }}</td>
+                                        <td>{{ turma.ano }}</td>
+                                        <td>#</td>
+                                        <td>#</td>
+                                        <td style="text-align: center">
+                                            <a href="{% url "turma-update" turma.pk %}"
+                                               class="btn btn-primary btn-mini">Editar</a>
+                                            <a href="{% url "turma-delete" turma.pk %}"
+                                               class="btn btn-danger btn-mini">Remover</a>
+                                        </td>
+                                    </tr>
+
+
+                                {% empty %}
+                                    <tr class="gradeX">
+                                        <td colspan="4" style="text-align: center">
+                                            Unidade não possui turmas cadastradas
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
