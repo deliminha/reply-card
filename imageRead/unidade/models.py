@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -34,3 +35,6 @@ class Unidade(models.Model):
         verbose_name        = 'Unidade'
         verbose_name_plural = 'Unidades'
         ordering            = ['nome', 'descricao']
+
+    def get_absolute_url(self):
+        return reverse('unidade-read', kwargs={'pk': self.pk})

@@ -40,7 +40,8 @@ DEFAULT_APPS = [
 ]
 LOCAL_APPS = [
     'imageRead.core',
-    'imageRead.unidade'
+    'imageRead.unidade',
+    'imageRead.turma',
 ]
 
 INSTALLED_APPS = LOCAL_APPS + DEFAULT_APPS
