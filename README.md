@@ -14,15 +14,21 @@ Clone esse projeto:
 Crie um ambiente virtual e instale as dependências:
 `$ virtualenv venv`
 
-`(venv)$ source /venv/bin/activate`
+~~~~bash
+(venv)$ source /venv/bin/activate`
 
-`(venv)$ pip install -r requeriments.txt`
+(venv)$ pip install -r requeriments.txt`
+~~~~
 
 ## Servidor de desenvolvimento
 Setup banco de dados:
 ~~~~bash
 (venv)$ python manage.py makemigrations
 (venv)$ python manage.py migrate
+~~~~
+Populando as informações de testes
+~~~~bash
+(venv)$ python manage.py loaddata data
 ~~~~
 Rodando a aplicação
 ~~~~bash
