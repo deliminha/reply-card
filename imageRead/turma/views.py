@@ -28,7 +28,7 @@ class TurmaDetail(DetailView):
 class TurmaUpdate(UpdateView):
     model = Turma
     extra_context = {"operacao": "Atualização"}
-    fields = ['nome', 'descricao', 'alunos']
+    fields = ['nome', 'descricao']
     template_name = 'turmas/form.html'
 
 
@@ -40,4 +40,10 @@ class TurmaDelete(DeleteView):
 
 class TurmaList(ListView):
     model = Turma
+    extra_context = {"movimentarTurma": True}
+    template_name = 'turmas/list.html'
+
+class TurmaAlunosList(ListView):
+    model = Turma
+    extra_context = {"movimentarTurma": False}
     template_name = 'turmas/list.html'

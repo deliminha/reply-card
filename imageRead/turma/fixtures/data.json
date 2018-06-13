@@ -1,43 +1,11 @@
 [
   {
-    "model": "turma.Aluno",
-    "pk": 1,
-    "fields": {
-      "nome": "Aluno 01",
-      "matricula": "201800001"
-    }
-  },
-  {
-    "model": "turma.Aluno",
-    "pk": 2,
-    "fields": {
-      "nome": "Aluno 02",
-      "matricula": "201800002"
-    }
-  },
-  {
-    "model": "turma.Aluno",
-    "pk": 3,
-    "fields": {
-      "nome": "Aluno 03",
-      "matricula": "201800003"
-    }
-  },
-  {
-    "model": "turma.Aluno",
-    "pk": 4,
-    "fields": {
-      "nome": "Aluno 04",
-      "matricula": "201800004"
-    }
-  },
-  {
     "model": "turma.Turma",
     "pk": 1,
     "fields": {
       "nome": "EF6A",
       "descricao": "Ensino Fundamental 6° Ano",
-      "ano": "2018-01-01",
+      "data_referencia": "2018-01-01",
       "alunos": [],
       "sessoes": []
     }
@@ -48,7 +16,7 @@
     "fields": {
       "nome": "EF6B",
       "descricao": "Ensino Fundamental 6° Ano",
-      "ano": "2018-01-01",
+      "data_referencia": "2018-01-01",
       "alunos": [],
       "sessoes": []
     }

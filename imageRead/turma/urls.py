@@ -13,15 +13,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path
+from django.urls import path, include
 
 from . import views
+from ..aluno import urls as alunoUrls
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('<int:pk>/cadastrar',  views.TurmaCreate.as_view(),  name='turma-create'),
-    path('<int:pk>',            views.TurmaDetail.as_view(),  name='turma-read'),
-    path('<int:pk>/atualizar',  views.TurmaUpdate.as_view(),  name='turma-update'),
-    path('<int:pk>/remover',    views.TurmaDelete.as_view(),  name='turma-delete'),
-    path('listar',              views.TurmaList.as_view(),    name='turma-list'),
+    path('<int:pk>/cadastrar',  views.TurmaCreate.as_view(),        name='turma-create'),
+    path('<int:pk>',            views.TurmaDetail.as_view(),        name='turma-read'),
+    path('<int:pk>/atualizar',  views.TurmaUpdate.as_view(),        name='turma-update'),
+    path('<int:pk>/remover',    views.TurmaDelete.as_view(),        name='turma-delete'),
+    path('listar',              views.TurmaList.as_view(),          name='turma-list'),
+    path('listar/alunos',       views.TurmaAlunosList.as_view(),    name='turma-aluno-list'),
+    path('',                    include(alunoUrls)),
 ]

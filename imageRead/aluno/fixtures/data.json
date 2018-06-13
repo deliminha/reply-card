@@ -1,0 +1,34 @@
+[
+  {
+    "model": "aluno.Aluno",
+    "pk": 1,
+    "fields": {
+      "nome": "Aluno 01",
+      "matricula": "201800001"
+    }
+  },
+  {
+    "model": "aluno.Aluno",
+    "pk": 2,
+    "fields": {
+      "nome": "Aluno 02",
+      "matricula": "201800002"
+    }
+  },
+  {
+    "model": "aluno.Aluno",
+    "pk": 3,
+    "fields": {
+      "nome": "Aluno 03",
+      "matricula": "201800003"
+    }
+  },
+  {
+    "model": "aluno.Aluno",
+    "pk": 4,
+    "fields": {
+      "nome": "Aluno 04",
+      "matricula": "201800004"
+    }
+  }
+]

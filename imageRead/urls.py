@@ -20,5 +20,6 @@ from imageRead.core import urls
 
 urlpatterns = [
     path('', include(urls)),
+    path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
 ]

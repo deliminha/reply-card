@@ -12,11 +12,17 @@ Clone esse projeto:
 `$ cd reply-card`
 
 Crie um ambiente virtual e instale as dependências:
-`$ virtualenv venv`
+~~~~bash
+$ virtualenv venv
+(venv)$ source /venv/bin/activate
+(venv)$ pip install -r requeriments.txt
+~~~~
 
-`(venv)$ source /venv/bin/activate`
-
-`(venv)$ pip install -r requeriments.txt`
+Antes de iniciar o servidor, será necessário coletar
+os arquivos estáticos da aplicação:
+~~~~
+(venv)$ python manage.py collectstatic
+~~~~
 
 ## Servidor de desenvolvimento
 Setup banco de dados:
@@ -29,4 +35,3 @@ Rodando a aplicação
 $ python manage.py runserver
 ~~~~
 Agora você pode ir até [http://localhost:8000](http://localhost:8000).
-fetch

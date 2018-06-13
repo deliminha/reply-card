@@ -28,7 +28,7 @@
                                 <tr>
                                     <th>Nome</th>
                                     <th>Descrição</th>
-                                    <th>Ano</th>
+                                    <th>Data Referência</th>
                                     <th>Qtd Alunos Matriculados</th>
                                     <th>Provas Aplicadas</th>
                                 </tr>
@@ -38,15 +38,22 @@
                                     <tr class="gradeX">
                                         <td>{{ turma.nome }}</td>
                                         <td>{{ turma.descricao }}</td>
-                                        <td>{{ turma.ano }}</td>
+                                        <td>{{ turma.data_referencia }}</td>
                                         <td>#</td>
                                         <td>#</td>
+                                        {% if movimentarTurma %}
                                         <td style="text-align: center">
                                             <a href="{% url "turma-update" turma.pk %}"
                                                class="btn btn-primary btn-mini">Editar</a>
                                             <a href="{% url "turma-delete" turma.pk %}"
                                                class="btn btn-danger btn-mini">Remover</a>
                                         </td>
+                                        {% else %}
+                                            <td style="text-align: center">
+                                            <a href="{% url "aluno-turma-list" turma.pk %}"
+                                               class="btn btn-primary btn-mini">Movimentar Estudantes</a>
+                                        </td>
+                                        {% endif %}
                                     </tr>
 
 

@@ -42,9 +42,14 @@ LOCAL_APPS = [
     'imageRead.core',
     'imageRead.unidade',
     'imageRead.turma',
+    'imageRead.aluno',
+]
+INTERFACE_APPS = [
+    'grappelli',
+    'grappelli.dashboard',
 ]
 
-INSTALLED_APPS = LOCAL_APPS + DEFAULT_APPS
+INSTALLED_APPS = LOCAL_APPS + INTERFACE_APPS + DEFAULT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -69,6 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
