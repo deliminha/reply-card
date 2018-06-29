@@ -42,8 +42,8 @@ class Turma(models.Model):
     nome            = models.CharField('Nome', max_length=60)
     descricao       = models.CharField('descricao', max_length=80)
     data_referencia = models.DateField('ano',blank=True)
-    alunos          = models.ManyToManyField(Aluno, blank= True, null=True)
-    sessoes         = models.ManyToManyField(Sessao, blank= True, null=True)
+    alunos          = models.ManyToManyField(Aluno, blank= True)
+    sessoes         = models.ManyToManyField(Sessao, blank= True)
 
     # Retorna o nome dos atributos
     def __str__(self):

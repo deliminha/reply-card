@@ -3,6 +3,14 @@
 {% block title %}AGIL{% endblock %}
 
 {% block body %}
+    <script type="text/javascript" src="/admin/jsi18n/"></script>
+    <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/jquery.init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/SelectBox.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/SelectFilter2.js' %}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}"/>
 
     <div id="content">
         <div id="content-header">
@@ -17,35 +25,58 @@
             <h1>{{ operacao }} Matriculados</h1>
 
         </div>
+        <div class="container">
+            <form enctype="multipart/form-data" action="" method="post" id="turma_form" novalidate>{% csrf_token %}
+                <div>
+                    <fieldset class="module aligned ">
+                        <h2>Alunos</h2>
+                        <div class="form-row field-alunos">
+                            <div>
+                                <div class="related-widget-wrapper">
 
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span12">
-                    <div class="widget-box">
-                        <div class="widget-title">
-								<span class="icon">
-									<i class="icon-pencil"></i>
-								</span>
-                            <h5>Estudantes da Turma</h5>
-                        </div>
-                        <div class="widget-content nopadding">
-                            <form action="" id="form-wizard" class="form-horizontal" method="post">{% csrf_token %}
-                                <div id="form-wizard-1" class="step">
-                                    <div class="control-group">
-                                        {{ form.as_p }}
+                                    <div class="fieldWrapper">
+                                        {{ field.errors }}
+                                        {{ field.label_tag }}
+                                        <select name="alunos" data-field-name="alunos" data-is-stacked="0"
+                                                id="id_alunos" multiple="multiple" class="selectfilter"
+                                                datasrc={{ form.alunos }}
+
+                                                        </select>
+                                            {% if field.help_text %}
+                                                <p class="help">{{ field.help_text|safe }}</p>
+                                            {% endif %}
                                     </div>
+
+
                                 </div>
-                                <div class="form-actions">
-                                    <input id="back" class="btn btn-primary" type="reset" value="Voltar" onclick="history.go(-1)"/>
-                                    <input id="next" class="btn btn-primary" type="submit" value="Salvar"/>
-                                    <div id="status"></div>
-                                </div>
-                                <div id="submitted"></div>
-                            </form>
+
+                            </div>
                         </div>
+                    </fieldset>
+                    <div class="submit-row">
+                        <input type="submit" value="Salvar" class="default" name="_save"/>
+
+
+                        <p class="deletelink-box"><a href="/admin/turma/turma/1/delete/" class="deletelink">Apagar</a>
+                        </p>
+
+
+                        <input type="submit" value="Salvar e adicionar outro(a)" name="_addanother"/>
+                        <input type="submit" value="Salvar e continuar editando" name="_continue"/>
                     </div>
+                    <script type="text/javascript"
+                            id="django-admin-form-add-constants"
+                            src="/static/admin/js/change_form.js">
+                    </script>
+
+
+                    <script type="text/javascript"
+                            id="django-admin-prepopulated-fields-constants"
+                            src="/static/admin/js/prepopulate_init.js"
+                            data-prepopulated-fields="[]">
+                    </script>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 {% endblock body %}

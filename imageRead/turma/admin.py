@@ -8,7 +8,7 @@ from .models import Aluno, Turma, Questionario, Sessao
 class TurmaAdmin(admin.ModelAdmin):
     list_display = ['nome', 'descricao']
     search_fields = ['nome', 'descricao']
-    filter_horizontal = ('alunos',)
+    filter_horizontal = ('alunos','sessoes')
     fieldsets = [
         ('Turma', {'fields': ['nome', 'descricao']}),
         ('Alunos', {'fields': ['alunos']}),
