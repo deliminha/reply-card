@@ -1,12 +1,12 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.utils.decorators import method_decorator
+from django.views.generic.edit import UpdateView
 
-from .models import Aluno
 from ..turma.models import Turma
 
+
+@method_decorator(login_required, name='dispatch')
 class AlunoTurmaList(UpdateView):
     model = Turma
     extra_context = {
@@ -16,3 +16,5 @@ class AlunoTurmaList(UpdateView):
     fields = ['alunos']
     success_url = reverse_lazy('turma-aluno-list')
     template_name = 'turmas/form_alunos.html'
+
+    queryset = Turma.objects.all().prefetch_related('alunos')

@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.urls import path, include
 
-
 from . import views
 from ..turma import urls as turmaUrls
 

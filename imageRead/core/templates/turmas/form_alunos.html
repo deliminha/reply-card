@@ -26,57 +26,53 @@
 
         </div>
         <div class="container">
-            <form enctype="multipart/form-data" action="" method="post" id="turma_form" novalidate>{% csrf_token %}
-                <div>
-                    <fieldset class="module aligned ">
-                        <h2>Alunos</h2>
-                        <div class="form-row field-alunos">
-                            <div>
-                                <div class="related-widget-wrapper">
-
-                                    <div class="fieldWrapper">
-                                        {{ field.errors }}
-                                        {{ field.label_tag }}
-                                        <select name="alunos" data-field-name="alunos" data-is-stacked="0"
-                                                id="id_alunos" multiple="multiple" class="selectfilter"
-                                                datasrc={{ form.alunos }}
-
-                                                        </select>
-                                            {% if field.help_text %}
-                                                <p class="help">{{ field.help_text|safe }}</p>
-                                            {% endif %}
-                                    </div>
+            <form action="" method="post" id="turma_form">{% csrf_token %}
+                <fieldset class="module aligned ">
+                    <h2>Alunos</h2>
 
 
+                    <div class="form-row field-alunos">
+
+
+                        <div>
+
+
+                            <label for="id_alunos"></label>
+
+                            <div class="related-widget-wrapper">
+                                <div style="width: 800px;float: left;">
+                                    {{ field.errors }}
+                                    {{ field.label_tag }}
+                                    <select name="Alunos" data-field-name="alunos"
+                                            id="id_alunos" multiple="multiple" class="selectfilter"
+                                            datasrc={{ form.alunos }}
+                                    </select>
+                                    {% if field.help_text %}
+                                        <p class="help">{{ field.help_text|safe }}</p>
+                                    {% endif %}
                                 </div>
 
+
                             </div>
+
                         </div>
-                    </fieldset>
-                    <div class="submit-row">
-                        <input type="submit" value="Salvar" class="default" name="_save"/>
-
-
-                        <p class="deletelink-box"><a href="/admin/turma/turma/1/delete/" class="deletelink">Apagar</a>
-                        </p>
-
-
-                        <input type="submit" value="Salvar e adicionar outro(a)" name="_addanother"/>
-                        <input type="submit" value="Salvar e continuar editando" name="_continue"/>
                     </div>
-                    <script type="text/javascript"
-                            id="django-admin-form-add-constants"
-                            src="/static/admin/js/change_form.js">
-                    </script>
-
-
-                    <script type="text/javascript"
-                            id="django-admin-prepopulated-fields-constants"
-                            src="/static/admin/js/prepopulate_init.js"
-                            data-prepopulated-fields="[]">
-                    </script>
+                </fieldset>
+                <div class="submit-row">
+                    <a href="{% url "turma-aluno-list" %}" class="btn btn-info">Voltar</a>
+                    <button class="btn btn-info" type="submit">Salvar</button>
                 </div>
             </form>
         </div>
+
     </div>
+
+
+    <style>
+        .selector .selector-available h2,
+        .selector-chosen h2 {
+            background: #1b1b1b;
+            color: #fff;
+        }
+    </style>
 {% endblock body %}

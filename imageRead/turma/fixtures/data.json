@@ -6,8 +6,7 @@
       "nome": "EF6A",
       "descricao": "Ensino Fundamental 6° Ano",
       "data_referencia": "2018-01-01",
-      "alunos": [],
-      "sessoes": []
+      "alunos": []
     }
   },
   {
@@ -17,8 +16,7 @@
       "nome": "EF6B",
       "descricao": "Ensino Fundamental 6° Ano",
       "data_referencia": "2018-01-01",
-      "alunos": [],
-      "sessoes": []
+      "alunos": []
     }
   }
 ]

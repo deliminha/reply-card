@@ -39,7 +39,7 @@
                                         <td>{{ turma.nome }}</td>
                                         <td>{{ turma.descricao }}</td>
                                         <td>{{ turma.data_referencia }}</td>
-                                        <td>#</td>
+                                        <td>{{ turma.alunos.all |length }}</td>
                                         <td>#</td>
                                         {% if movimentarTurma %}
                                         <td style="text-align: center">
