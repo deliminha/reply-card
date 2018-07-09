@@ -44,10 +44,6 @@ LOCAL_APPS = [
     'imageRead.turma',
     'imageRead.aluno',
 ]
-INTERFACE_APPS = [
-    'grappelli',
-    'grappelli.dashboard',
-]
 
 INSTALLED_APPS = LOCAL_APPS + DEFAULT_APPS
 

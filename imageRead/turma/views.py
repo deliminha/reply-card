@@ -19,7 +19,7 @@ def index(request):
 class TurmaCreate(CreateView):
     model = Turma
     extra_context = {"operacao": "Cadastro"}
-    fields = ['nome', 'descricao', 'alunos']
+    fields = ['nome', 'descricao', 'data_referencia']
     template_name = 'turmas/form.html'
 
 
@@ -33,7 +33,8 @@ class TurmaDetail(DetailView):
 class TurmaUpdate(UpdateView):
     model = Turma
     extra_context = {"operacao": "Atualização"}
-    fields = ['nome', 'descricao']
+    fields = ['nome', 'descricao', 'data_referencia']
+    success_url = reverse_lazy('turma-list')
     template_name = 'turmas/form.html'
 
 

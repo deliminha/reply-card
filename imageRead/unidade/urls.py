@@ -20,10 +20,10 @@ from ..turma import urls as turmaUrls
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('<int:pk>/cadastrar',  views.UnidadeCreate.as_view,  name='unidade-create'),
-    path('<int:pk>',            views.UnidadeDetail.as_view,  name='unidade-read'),
-    path('<int:pk>/atualizar',  views.UnidadeUpdate.as_view,  name='unidade-update'),
-    path('<int:pk>/remover',    views.UnidadeDelete.as_view,  name='unidade-delete'),
+    path('<int:pk>/cadastrar',  views.UnidadeCreate.as_view(),  name='unidade-create'),
+    path('<int:pk>',            views.UnidadeDetail.as_view(),  name='unidade-read'),
+    path('<int:pk>/atualizar',  views.UnidadeUpdate.as_view(),  name='unidade-update'),
+    path('<int:pk>/remover',    views.UnidadeDelete.as_view(),  name='unidade-delete'),
     path('turmas/',             include(turmaUrls)),
-    path('listar',              views.UnidadeList.as_view,    name='unidade-list'),
+    path('listar',              views.UnidadeList.as_view(),    name='unidade-list'),
 ]

@@ -9,13 +9,13 @@
                 <a href="{% url "index" %}" title="Pagina Inicial" class="tip-bottom">
                     <i class="icon-home"></i> Inicial
                 </a>
-                <a href="{% url "turma-list" %}" class="current">Turmas
+                <a href="{% url "aluno-turma-list" aluno.turma.pk %}" class="current">Turmas
                 </a>
                 <a href="#" class="current">{{ operacao }}</a>
             </div>
-            <h1>Remoção da Turma</h1>
+            <h1>Remoção de Aluno</h1>
             <form method="post">{% csrf_token %}
-                <p>Tem certeza de que deseja excluir "{{ turma }}"?</p>
+                <p>Tem certeza de que deseja excluir "{{ aluno }}"?</p>
                 <input type="submit" value="Confirmar"/>
             </form>
         </div>

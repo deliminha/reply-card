@@ -21,6 +21,12 @@
                         <div class="widget-title">
                             <span class="icon"><i class="icon-th"></i></span>
                             <h5>Turmas Cadastradas</h5>
+
+                            <div class="buttons">
+                                <a href="{% url "turma-create" %}" class="btn btn-mini btn-success">
+                                    <i class="icon-book"></i>
+                                    Nova Turma</a>
+                            </div>
                         </div>
                         <div class="widget-content nopadding">
                             <table class="table table-bordered data-table">
@@ -31,6 +37,7 @@
                                     <th>Data Referência</th>
                                     <th>Qtd Alunos Matriculados</th>
                                     <th>Provas Aplicadas</th>
+                                    <th width="15%;">Alterações</th>
                                 </tr>
                                 </thead>
                                 <tbody>
