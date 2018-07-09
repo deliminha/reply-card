@@ -25,7 +25,7 @@ SECRET_KEY = '*m9f3u@htp3szge@g0x3rp!z_akb7&7=%bc=sl1tt_-s9tx&oy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['exodo.herokuapp.com',]
 
 
 # Application definition
@@ -44,10 +44,6 @@ LOCAL_APPS = [
     'imageRead.turma',
     'imageRead.aluno',
 ]
-INTERFACE_APPS = [
-    'grappelli',
-    'grappelli.dashboard',
-]
 
 INSTALLED_APPS = LOCAL_APPS + DEFAULT_APPS
 
@@ -59,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'imageRead.urls'

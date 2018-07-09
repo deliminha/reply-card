@@ -1,0 +1,1 @@
+web: gunicorn imageRead.wsgi

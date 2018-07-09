@@ -26,9 +26,29 @@ os arquivos estáticos da aplicação:
 
 ## Servidor de desenvolvimento
 Setup banco de dados:
+
+1) Limpe o histórico para todas as apps, o exemplo abaixo limpa o histórico da app de nome core.
+~~~~
+(venv)$ python manage.py makemigrations
+(venv)$ python manage.py migrate --fake core zero
+~~~~
+
+2) Remova os arquivos de migração:
+
+~~~~
+(venv)$ find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+(venv)$ find . -path "*/migrations/*.pyc"  -delete
+~~~~
+3) Crie as migrações iniciais:
+
 ~~~~bash
 (venv)$ python manage.py makemigrations
-(venv)$ python manage.py migrate
+(venv)$ python manage.py migrate --fake-initial
+~~~~
+4) Inicialize o banco com informações estáticas:
+
+~~~~bash
+(venv)$ python manage.py loaddata data
 ~~~~
 Rodando a aplicação
 ~~~~bash

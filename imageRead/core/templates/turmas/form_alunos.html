@@ -3,13 +3,6 @@
 {% block title %}AGIL{% endblock %}
 
 {% block body %}
-    <script type="text/javascript" src="/admin/jsi18n/"></script>
-    <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
-    <script type="text/javascript" src="{% static 'admin/js/jquery.init.js' %}"></script>
-    <script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
-    <script type="text/javascript" src="{% static 'admin/js/SelectBox.js' %}"></script>
-    <script type="text/javascript" src="{% static 'admin/js/SelectFilter2.js' %}"></script>
-
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}"/>
 
     <div id="content">
@@ -18,65 +11,55 @@
                 <a href="{% url "index" %}" title="Pagina Inicial" class="tip-bottom">
                     <i class="icon-home"></i> Inicial
                 </a>
-                <a href="{% url "turma-list" %}" class="current">Turmas
-                </a>
+                <a href="{% url "turma-aluno-list" %}" class="current">Turmas</a>
                 <a href="#" class="current">{{ operacao }}</a>
             </div>
-            <h1>{{ operacao }} Matriculados</h1>
-
+            <h1>{{ turma }}</h1>
         </div>
-        <div class="container">
-            <form enctype="multipart/form-data" action="" method="post" id="turma_form" novalidate>{% csrf_token %}
-                <div>
-                    <fieldset class="module aligned ">
-                        <h2>Alunos</h2>
-                        <div class="form-row field-alunos">
-                            <div>
-                                <div class="related-widget-wrapper">
+        <div class="container-fluid" style="padding-left:5%;width:85%;">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title">
+                            <span class="icon"><i class="icon-th"></i></span>
+                            <h5>{{ operacao }} Matriculados</h5>
 
-                                    <div class="fieldWrapper">
-                                        {{ field.errors }}
-                                        {{ field.label_tag }}
-                                        <select name="alunos" data-field-name="alunos" data-is-stacked="0"
-                                                id="id_alunos" multiple="multiple" class="selectfilter"
-                                                datasrc={{ form.alunos }}
-
-                                                        </select>
-                                            {% if field.help_text %}
-                                                <p class="help">{{ field.help_text|safe }}</p>
-                                            {% endif %}
-                                    </div>
-
-
-                                </div>
-
+                            <div class="buttons">
+                                <a href="{% url "aluno-create" %}" class="btn btn-mini btn-success">
+                                    <i class="icon-user"></i>
+                                    Novo Estudante</a>
                             </div>
                         </div>
-                    </fieldset>
-                    <div class="submit-row">
-                        <input type="submit" value="Salvar" class="default" name="_save"/>
-
-
-                        <p class="deletelink-box"><a href="/admin/turma/turma/1/delete/" class="deletelink">Apagar</a>
-                        </p>
-
-
-                        <input type="submit" value="Salvar e adicionar outro(a)" name="_addanother"/>
-                        <input type="submit" value="Salvar e continuar editando" name="_continue"/>
+                        <div class="widget-content nopadding">
+                            <table class="table table-bordered data-table">
+                                <thead>
+                                <tr>
+                                    <th width="15px;">Nª Chamada</th>
+                                    <th width="20%">Matricula</th>
+                                    <th>Nome</th>
+                                    <th width="15%;">Alterações</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for aluno in object_list %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ aluno.matricula }}</td>
+                                        <td>{{ aluno.nome }}</td>
+                                        <td style="text-align: center">
+                                            <a href="{% url "aluno-update" aluno.pk %}"
+                                               class="btn btn-primary btn-mini">Editar</a>
+                                            <a href="{% url "aluno-delete" aluno.pk %}"
+                                               class="btn btn-danger btn-mini">Remover</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <script type="text/javascript"
-                            id="django-admin-form-add-constants"
-                            src="/static/admin/js/change_form.js">
-                    </script>
-
-
-                    <script type="text/javascript"
-                            id="django-admin-prepopulated-fields-constants"
-                            src="/static/admin/js/prepopulate_init.js"
-                            data-prepopulated-fields="[]">
-                    </script>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 {% endblock body %}

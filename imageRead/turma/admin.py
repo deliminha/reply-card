@@ -2,21 +2,17 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Aluno, Turma, Questionario, Sessao
+from .models import Turma, Questionario, Sessao
 
 
 class TurmaAdmin(admin.ModelAdmin):
     list_display = ['nome', 'descricao']
     search_fields = ['nome', 'descricao']
-    filter_horizontal = ('alunos','sessoes')
     fieldsets = [
-        ('Turma', {'fields': ['nome', 'descricao']}),
-        ('Alunos', {'fields': ['alunos']}),
-        ('Avaliações', {'fields': ['sessoes']}),
+        ('Turma', {'fields': ['nome', 'descricao','data_referencia']}),
     ]
 
 admin.site.register(Turma, TurmaAdmin)
-admin.site.register(Aluno)
 admin.site.register(Questionario)
 admin.site.register(Sessao)
 

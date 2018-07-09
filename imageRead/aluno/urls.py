@@ -19,5 +19,8 @@ from . import views
 
 urlpatterns = [
 
-    path('<int:pk>/alunos', views.AlunoTurmaList.as_view(), name='aluno-turma-list'),
+    path('<int:pk>/alunos',            views.AlunoTurmaList.as_view(),     name='aluno-turma-list'),
+    path('alunos/cadastrar',           views.AlunoCreate.as_view(),        name='aluno-create'),
+    path('<int:pk>/alunos/atualizar',  views.AlunoUpdate.as_view(),        name='aluno-update'),
+    path('<int:pk>/alunos/remover',    views.AlunoDelete.as_view(),        name='aluno-delete'),
 ]

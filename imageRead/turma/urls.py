@@ -20,7 +20,7 @@ from ..aluno import urls as alunoUrls
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('<int:pk>/cadastrar',  views.TurmaCreate.as_view(),        name='turma-create'),
+    path('cadastrar',           views.TurmaCreate.as_view(),        name='turma-create'),
     path('<int:pk>',            views.TurmaDetail.as_view(),        name='turma-read'),
     path('<int:pk>/atualizar',  views.TurmaUpdate.as_view(),        name='turma-update'),
     path('<int:pk>/remover',    views.TurmaDelete.as_view(),        name='turma-delete'),
