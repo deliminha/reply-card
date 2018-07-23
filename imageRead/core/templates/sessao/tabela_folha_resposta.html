@@ -1,0 +1,43 @@
+{% load static %}
+<div class="widget-box {% if forloop.counter|add:1|divisibleby:2 %}pagebreak {% endif %}" >
+    <div class="widget-title" style="text-align: center; height: auto;">
+        <span>AVALIAÇÃO</span><br>
+        <span>TURMA: {{ sessao.turma|upper }}</span><br>
+        {% if aluno %}
+            <span>Aluno (a): {{ aluno | upper }} Data: {{ sessao.dataAplicacao | date:"d-m-Y" }} </span>
+        {% else %}
+            <span>Aluno (a):  ______________________________________________________
+                Data: {{ sessao.dataAplicacao | date:"d-m-Y" }}
+            </span>
+        {% endif %}
+    </div>
+    <div class="widget-content nopadding" style="margin-left: 10%">
+        <table>
+            <thead>
+            <tr>
+                <td>N°</td>
+                {% for alternativa in alternativas %}
+                    <td style="text-align: center;">{{ alternativa }}</td>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for questao in quantidade_questoes %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    {% for alternativa in alternativas %}
+                        <td style="width: 18%;text-align: center; ">
+                            <img src="{% static 'images/gabarito/circulo.jpg' %}" width="15"
+                                 height="20">
+
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="form-actions">
+            <span>Assinatura: ______________________________________________________</span>
+        </div>
+    </div>
+</div>

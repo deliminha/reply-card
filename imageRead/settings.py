@@ -25,7 +25,7 @@ SECRET_KEY = '*m9f3u@htp3szge@g0x3rp!z_akb7&7=%bc=sl1tt_-s9tx&oy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['exodo.herokuapp.com',]
+ALLOWED_HOSTS = ['exodo.herokuapp.com','localhost']
 
 
 # Application definition

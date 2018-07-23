@@ -6,6 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
 from .models import Aluno
+from ..turma.models import Sessao
 from ..turma.models import Turma
 
 
@@ -20,6 +21,8 @@ class AlunoTurmaList(ListView):
 
     def get_queryset(self):
         self.turma = get_object_or_404(Turma, pk=self.kwargs['pk'])
+        self.sessoes = Sessao.objects.filter(turma_id=self.turma.pk)
+        self.extra_context['sessoes'] = self.sessoes
         self.extra_context['turma'] = self.turma
         return Aluno.objects.filter(turma=self.turma)
 

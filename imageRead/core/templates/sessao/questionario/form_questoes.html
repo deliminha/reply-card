@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}AGIL{% endblock %}
+
+{% block body %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb">
+                <a href="{% url "index" %}" title="Pagina Inicial" class="tip-bottom">
+                    <i class="icon-home"></i> Inicial
+                </a>
+                <a href="{% url "turma-aluno-list" %}" class="current">Turmas
+                </a>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title">
+								<span class="icon">
+									<i class="icon-pencil"></i>
+								</span>
+                            <h5>Dados do questionário</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <h3>Questões</h3>
+                            <span>Informar alterativas entre (A e E)</span>
+                            <form action="" name="formWizard" id="form-wizard" class="form-horizontal"
+                                  method="post">{% csrf_token %}
+                                <div hidden>
+                                    {{ form.descricao_alterativas }}
+                                </div>
+                                {% for questao in quantidade_questoes %}
+                                    <span>{{ forloop.counter }}ª Questão*</span>
+                                    <input id="id_questao_{{ forloop.counter }}" name="questao_{{ forloop.counter }}"
+                                           type="text" max="1" maxlength="1"
+                                           onchange="alterarAlterativas(this)"
+                                           value="">
+                                    <br>
+                                {% endfor %}
+                                <div style="padding-left: 35%;" class="form-actions">
+                                    <input id="back" class="btn btn-primary" type="reset" value="Voltar"
+                                           onclick="history.go(-1)"/>
+                                    <input id="next" class="btn btn-primary" type="button" value="Salvar"
+                                           onclick="gerar()"/>
+                                    <div id="status"></div>
+                                </div>
+                                <div id="submitted"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.onload = function () {
+            let total = {{ questionario.quantidade_questoes }};
+            let descricaoAlternativas = document.getElementById('id_descricao_alterativas').value;
+            let alternativas = descricaoAlternativas.split(";");
+            for (let i = 1; i <= total; i++) {
+                document.getElementById('id_questao_' + i).value = alternativas[i - 1] || "";
+            }
+
+        };
+
+        function alterarAlterativas(campo) {
+            let asc = campo.value.toUpperCase().charCodeAt(0);
+            if (isNumber(campo.value) || (asc < 65 || asc > 69)) {
+                campo.value = '';
+            }
+        }
+
+        function isNumber(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        }
+
+        function gerar() {
+            let acumulador = "";
+            let total = {{ questionario.quantidade_questoes }};
+            let auxiliar;
+            let enviar = true;
+            for (let i = 1; i <= total; i++) {
+                auxiliar = document.getElementById('id_questao_' + i).value.toUpperCase() + ";";
+                if (auxiliar === ";") {
+                    alert("Favor indicar a resposta de todas as questões");
+                    enviar = false;
+                    break;
+                } else {
+                    acumulador += auxiliar;
+                }
+            }
+            if (enviar) {
+                document.getElementById('id_descricao_alterativas').value = acumulador;
+                document.formWizard.submit();
+            }
+        }
+    </script>
+{% endblock body %}

@@ -34,5 +34,14 @@
       "matricula": "201800004",
       "turma": "2"
     }
+  },
+  {
+    "model": "aluno.Aluno",
+    "pk": 5,
+    "fields": {
+      "nome": "Aluno 05",
+      "matricula": "201800005",
+      "turma": "2"
+    }
   }
 ]

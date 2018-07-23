@@ -21,10 +21,20 @@ from ..aluno import urls as alunoUrls
 urlpatterns = [
     path('', views.index, name='index'),
     path('cadastrar',           views.TurmaCreate.as_view(),        name='turma-create'),
-    path('<int:pk>',            views.TurmaDetail.as_view(),        name='turma-read'),
     path('<int:pk>/atualizar',  views.TurmaUpdate.as_view(),        name='turma-update'),
     path('<int:pk>/remover',    views.TurmaDelete.as_view(),        name='turma-delete'),
     path('listar',              views.TurmaList.as_view(),          name='turma-list'),
     path('listar/alunos',       views.TurmaAlunosList.as_view(),    name='turma-aluno-list'),
     path('',                    include(alunoUrls)),
+
+    path('questionario/cadastrar',                   views.QuestionarioCreate.as_view(),         name='questionario-create'),
+    path('<int:pk>/questionario/cadastrar/questoes', views.QuestionarioCreateQuestoes.as_view(), name='questionario-create-details'),
+    path('<int:pk>/questionario/atualizar',          views.QuestionarioUpdate.as_view(),         name='questionario-update'),
+    path('<int:pk>/questionario/remover',            views.QuestionarioDelete.as_view(),         name='questionario-delete'),
+
+    path('sessao/cadastrar',                views.SessaoCreate.as_view(),   name='sessao-create'),
+    path('<int:pk>/sessao/atualizar',       views.SessaoUpdate.as_view(),   name='sessao-update'),
+    path('<int:pk>/sessao/remover',         views.SessaoDelete.as_view(),   name='sessao-delete'),
+    path('<int:pk>/sessao/folha_resposta_padrao', views.SessaoGabarito.as_view(), name='sessao-folha-resposta'),
+    path('<int:pk>/sessao/folha_resposta_turma',  views.SessaoGabaritoTurma.as_view(), name='sessao-folha-resposta-turma'),
 ]
