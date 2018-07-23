@@ -1,5 +1,5 @@
 {% load static %}
-<div class="widget-box {% if forloop.counter|add:1|divisibleby:2 %}pagebreak {% endif %}" >
+<div class="widget-box {% if forloop.counter and forloop.counter|add:1|divisibleby:2 %}pagebreak {% endif %}" >
     <div class="widget-title" style="text-align: center; height: auto;">
         <span>AVALIAÇÃO</span><br>
         <span>TURMA: {{ sessao.turma|upper }}</span><br>
