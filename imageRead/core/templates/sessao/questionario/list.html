@@ -20,7 +20,7 @@
                 </th>
                 <th>Nome</th>
                 <th width="25%">Data Aplicação</th>
-                <th width="15%;">Alterações</th>
+                <th width="20%;">Alterações</th>
             </tr>
             </thead>
             <tbody>
@@ -34,13 +34,16 @@
                             <i class="icon-download-alt"></i><span>Por Aluno<br></span>
                         </a>
                     </td>
-                    <td style="text-align: center;">{{ sessao.questionario }}</td>
+                    <td style="text-align: center;"><a href="{% url "sessao-evaluate" sessao.pk %}">
+                        <span>{{ sessao.questionario }}</span></a></td>
                     <td>{{ sessao.dataAplicacao }}</td>
                     <td style="text-align: center">
                         <a href="{% url "sessao-update" sessao.pk %}"
                            class="btn btn-primary btn-mini">Editar</a>
                         <a href="{% url "sessao-delete" sessao.pk %}"
                            class="btn btn-danger btn-mini">Remover</a>
+                        <a href="{% url "sessao-evaluate" sessao.pk %}"
+                           class="btn btn-inverse btn-mini">Corrigir</a>
                     </td>
                 </tr>
             {% empty %}

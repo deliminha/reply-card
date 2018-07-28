@@ -1,5 +1,5 @@
 {% load static %}
-<div class="widget-box {% if forloop.counter and forloop.counter|add:1|divisibleby:2 %}pagebreak {% endif %}" >
+<div class="widget-box {% if forloop.counter and forloop.counter|add:1|divisibleby:2 %}pagebreak {% endif %}">
     <div class="widget-title" style="text-align: center; height: auto;">
         <span>AVALIAÇÃO</span><br>
         <span>TURMA: {{ sessao.turma|upper }}</span><br>
@@ -12,6 +12,8 @@
         {% endif %}
     </div>
     <div class="widget-content nopadding" style="margin-left: 10%">
+        <span class="square-left">■</span>
+        <span class="square-right">■</span>
         <table>
             <thead>
             <tr>
@@ -36,8 +38,25 @@
             {% endfor %}
             </tbody>
         </table>
+    <span class="square-left">■</span>
+    <span class="square-right">■</span>
         <div class="form-actions">
-            <span>Assinatura: ______________________________________________________</span>
+            <span><strong>Assinatura:</strong> ______________________________________________________</span>
         </div>
     </div>
+
 </div>
+<style>
+    .square {
+        width: 10px;
+        height: 10px;
+        background: black;
+    }
+
+    .square-left {
+        margin: 10px 0 10px 5px;
+    }
+    .square-right {
+        margin: 10px 0 10px 90%
+    }
+</style>

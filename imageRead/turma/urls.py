@@ -37,4 +37,7 @@ urlpatterns = [
     path('<int:pk>/sessao/remover',         views.SessaoDelete.as_view(),   name='sessao-delete'),
     path('<int:pk>/sessao/folha_resposta_padrao', views.SessaoGabarito.as_view(), name='sessao-folha-resposta'),
     path('<int:pk>/sessao/folha_resposta_turma',  views.SessaoGabaritoTurma.as_view(), name='sessao-folha-resposta-turma'),
+
+
+    path('<int:pk>/sessao/avaliar',         views.SessaoEvaluate.as_view(),   name='sessao-evaluate'),
 ]
