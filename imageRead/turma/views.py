@@ -13,6 +13,8 @@ from .models import Turma, Sessao, Questionario
 from ..aluno.models import Aluno, AlunoSessao
 
 
+from ..core.corretor.CameraRecognition import CameraRecognition
+
 # Create your views here.
 @login_required
 def index(request):

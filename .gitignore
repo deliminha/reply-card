@@ -68,6 +68,8 @@ target/
 .idea/
 # Jupyter Notebook
 .ipynb_checkpoints
+venv.ipynb
+
 
 # pyenv
 .python-version
