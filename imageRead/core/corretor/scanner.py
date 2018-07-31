@@ -1,4 +1,3 @@
-##################### SCANINNG UTILS #####################
 import cv2
 import imutils
 import numpy as np
@@ -77,7 +76,7 @@ class Scanner:
         edged = cv2.Canny(image, 100, 200)
 
         # show the original image and the edge detected image
-        print("STEP 1: Edge Detection")
+        #print("STEP 1: Edge Detection")
 
         cnts = cv2.findContours(edged.copy(), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
         cnts = cnts[0] if imutils.is_cv2() else cnts[1]
@@ -97,7 +96,7 @@ class Scanner:
                 break
 
         # show the contour (outline) of the piece of paper
-        print("STEP 2: Find contours of paper")
+        # print("STEP 2: Find contours of paper")
         if screenCnt is not None:
             # apply the four point transform to obtain a top-down
             # view of the original image
@@ -110,7 +109,7 @@ class Scanner:
             #             warped = (warped > T).astype("uint8") * 255
 
             # show the original and scanned images
-            print("STEP 3: Apply perspective transform")
+            # print("STEP 3: Apply perspective transform")
 
             return imutils.resize(warped, height=650)
 

@@ -39,5 +39,7 @@ urlpatterns = [
     path('<int:pk>/sessao/folha_resposta_turma',  views.SessaoGabaritoTurma.as_view(), name='sessao-folha-resposta-turma'),
 
 
-    path('<int:pk>/sessao/avaliar',         views.SessaoEvaluate.as_view(),   name='sessao-evaluate'),
+    path('<int:pk>/sessao/detalhes',                    views.SessaoDetails.as_view(),      name='sessao-details'),
+    path('<int:pk_1>/sessao/detalhes/aluno/<int:pk_2>', views.SessaoAlunoDetails.as_view(), name='sessao-aluno-details'),
+    path('<int:pk_1>/sessao/detalhes/aluno/<int:pk_2>/avaliar', views.sessaoEvaluate, name='sessao-evaluate'),
 ]

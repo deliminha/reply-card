@@ -9,7 +9,7 @@ class Questionario(models.Model):
     pontMin               = models.PositiveIntegerField('Pontuação Mínima')
     media                 = models.PositiveIntegerField('Média')
     quantidade_questoes   = models.PositiveIntegerField('Quantidade Questões')
-    descricao_alterativas = models.CharField('Descrição de Alterativas', max_length=60, blank=True)
+    descricao_alterativas = models.CharField('Descrição de Alternativas', max_length=60, blank=True)
 
     # Retorna o nome dos atributos
     def __str__(self):

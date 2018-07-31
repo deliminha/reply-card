@@ -34,7 +34,7 @@
                             <i class="icon-download-alt"></i><span>Por Aluno<br></span>
                         </a>
                     </td>
-                    <td style="text-align: center;"><a href="{% url "sessao-evaluate" sessao.pk %}">
+                    <td style="text-align: center;"><a href="{% url "sessao-details" sessao.pk %}">
                         <span>{{ sessao.questionario }}</span></a></td>
                     <td>{{ sessao.dataAplicacao }}</td>
                     <td style="text-align: center">
@@ -42,7 +42,7 @@
                            class="btn btn-primary btn-mini">Editar</a>
                         <a href="{% url "sessao-delete" sessao.pk %}"
                            class="btn btn-danger btn-mini">Remover</a>
-                        <a href="{% url "sessao-evaluate" sessao.pk %}"
+                        <a href="{% url "sessao-details" sessao.pk %}"
                            class="btn btn-inverse btn-mini">Corrigir</a>
                     </td>
                 </tr>

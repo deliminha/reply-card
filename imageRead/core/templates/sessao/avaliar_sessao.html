@@ -43,8 +43,10 @@
                                         <td>{{ alunoSessao.aluno.nome }}</td>
                                         <td>{{ alunoSessao.media }}</td>
                                         <td style="text-align: center">
-                                            <a href="#" class="btn btn-primary btn-mini">Avaliar</a>
-                                            <a href="#" class="btn btn-inverse btn-mini">Detalhar</a>
+                                            <a href="{% url 'sessao-evaluate' alunoSessao.sessao.pk alunoSessao.pk %}"
+                                               class="btn btn-primary btn-mini">Avaliar</a>
+                                            <a href="{% url 'sessao-aluno-details' alunoSessao.sessao.pk alunoSessao.pk %}"
+                                               class="btn btn-inverse btn-mini">Detalhar</a>
                                         </td>
                                     </tr>
                                 {% empty %}
@@ -56,10 +58,11 @@
                                 {% endfor %}
                                 </tbody>
                             </table>
-                        <div style="padding-left: 90%;" class="form-actions">
-                        <input id="back" class="btn btn-primary" type="reset" value="Voltar"
-                               onclick="history.go(-1)"/>
-                    </div>
+                            <form action="{% url 'aluno-turma-list' sessao.turma.pk %}" method="get">
+                                <div style="padding-left: 90%;" class="form-actions">
+                                    <input id="back" class="btn btn-primary" type="submit" value="Voltar"/>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

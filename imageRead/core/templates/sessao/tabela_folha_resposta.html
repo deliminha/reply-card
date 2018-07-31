@@ -11,35 +11,35 @@
             </span>
         {% endif %}
     </div>
-    <div class="widget-content nopadding" style="margin-left: 10%">
-        <span class="square-left">■</span>
-        <span class="square-right">■</span>
-        <table>
-            <thead>
-            <tr>
-                <td>N°</td>
-                {% for alternativa in alternativas %}
-                    <td style="text-align: center;">{{ alternativa }}</td>
-                {% endfor %}
-            </tr>
-            </thead>
-            <tbody>
-            {% for questao in quantidade_questoes %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    {% for alternativa in alternativas %}
-                        <td style="width: 18%;text-align: center; ">
-                            <img src="{% static 'images/gabarito/circulo.jpg' %}" width="15"
-                                 height="20">
+    <div class="widget-content nopadding">
+        <div id="questoes">
+            <div class="container">
+                <table>
+                    <thead>
+                    <tr>
+                        <td>N°</td>
+                        {% for alternativa in alternativas %}
+                            <td style="text-align: center;">{{ alternativa }}</td>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for questao in quantidade_questoes %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            {% for alternativa in alternativas %}
+                                <td style="width: 18%;text-align: center; ">
+                                    <img src="{% static 'images/gabarito/circulo.jpg' %}" width="15"
+                                         height="20">
 
-                        </td>
+                                </td>
+                            {% endfor %}
+                        </tr>
                     {% endfor %}
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    <span class="square-left">■</span>
-    <span class="square-right">■</span>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <div class="form-actions">
             <span><strong>Assinatura:</strong> ______________________________________________________</span>
         </div>
@@ -47,16 +47,23 @@
 
 </div>
 <style>
-    .square {
-        width: 10px;
-        height: 10px;
-        background: black;
+
+    #questoes {
+        margin-top: 1%;
+        margin-right: 10%;
+        text-align: center;
+        border: 1px solid;
+        border-color: black;
     }
 
-    .square-left {
-        margin: 10px 0 10px 5px;
+    .nopadding {
+        margin-left: 5%
     }
-    .square-right {
-        margin: 10px 0 10px 90%
+
+    .container{
+        margin-top: 1%;
+        margin-bottom: 3%;
+        margin-left: 5%;
     }
+
 </style>

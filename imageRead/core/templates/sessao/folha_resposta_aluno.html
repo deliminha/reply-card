@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}AGIL{% endblock %}
+
+{% block body %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb">
+                <a href="{% url "index" %}" title="Pagina Inicial" class="tip-bottom">
+                    <i class="icon-home"></i> Inicial
+                </a>
+                <a href="{% url "turma-aluno-list" %}" class="current">Turmas
+                </a>
+            </div>
+            <h3>Questões</h3>
+            <span><strong>Resultado do(a) Aluno(a): {{ alunosessao.aluno.nome }}</strong></span>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    {% if mensagem_erro %}
+                        <div>
+                            <h4 style="text-align: center">
+                                <span class="label label-important">
+                                    {{ mensagem_erro |upper }}
+                                </span>
+                            </h4>
+                        </div>
+                    {% else %}
+                        <div class="widget-box">
+                            <div class="widget-title">
+								<span class="icon">
+									<i class="icon-pencil"></i>
+								</span>
+                                <h5>Dados do questionário</h5>
+                            </div>
+                            <div class="widget-content nopadding">
+
+                                <div id="quest_alternativas" hidden>
+                                    {{ questionario.descricao_alterativas }}
+                                </div>
+                                <div id="aluno_alternativas" hidden>
+                                    {{ alunosessao.descricao_alterativas }}
+                                </div>
+                                <div id="aluno_pontuacao" hidden>
+                                    {{ alunosessao.descricao_pontuacao }}
+                                </div>
+                                <table class="table table-bordered data-table">
+                                    <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Resposta Aluno</th>
+                                        <th>Resposta Correta</th>
+                                        <th>Pontuação</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for questao in quantidade_questoes %}
+                                        <tr>
+                                            <td>
+                                                <span>{{ forloop.counter }}</span>
+                                            </td>
+                                            <td>
+                                                <span id="id_aluno_questao_{{ forloop.counter }}"></span>
+                                            </td>
+                                            <td>
+                                                <span id="id_questao_{{ forloop.counter }}"></span>
+                                            </td>
+                                            <td>
+                                                <span id="id_resultado_questao_{{ forloop.counter }}"></span>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td colspan="3" style="text-align: right;"><strong>Total:</strong></td>
+                                        <td style="text-align: right;"><strong>{{ alunosessao.media }}</strong></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div style="padding-left: 90%;" class="form-actions">
+                        <input id="back" class="btn btn-primary" type="reset" value="Voltar"
+                               onclick="history.go(-1)"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.onload = function () {
+            let total = {{ questionario.quantidade_questoes }};
+            let quest_alternativas = document.getElementById('quest_alternativas').textContent;
+            let aluno_alternativas = document.getElementById('aluno_alternativas').textContent;
+            let aluno_pontuacao = document.getElementById('aluno_pontuacao').textContent;
+            populaRespostas('id_questao_', quest_alternativas.replace(/\s/g, ''), false);
+            populaRespostas('id_aluno_questao_', aluno_alternativas.replace(/\s/g, ''), false);
+            populaRespostas('id_resultado_questao_', aluno_pontuacao.replace(/\s/g, ''), true);
+
+            function populaRespostas(id_form, descricaoAlternativas, isNumber) {
+                let alternativas = descricaoAlternativas.split(";");
+                for (let i = 1; i <= total; i++) {
+                    document.getElementById(id_form + i).innerHTML = alternativas[i - 1] || ((isNumber) ? 0 : "");
+                }
+            }
+        };
+    </script>
+    <style>
+        input {
+            text-align: center;
+        }
+
+        h3, span strong {
+            margin-left: 5%;
+        }
+
+        .table td {
+            text-align: center;
+        }
+
+    </style>
+{% endblock body %}
