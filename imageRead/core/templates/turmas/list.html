@@ -21,12 +21,13 @@
                         <div class="widget-title">
                             <span class="icon"><i class="icon-th"></i></span>
                             <h5>Turmas Cadastradas</h5>
-
-                            <div class="buttons">
-                                <a href="{% url "turma-create" %}" class="btn btn-mini btn-success">
-                                    <i class="icon-book"></i>
-                                    Nova Turma</a>
-                            </div>
+                            {% if movimentarTurma %}
+                                <div class="buttons">
+                                    <a href="{% url "turma-create" %}" class="btn btn-mini btn-success">
+                                        <i class="icon-book"></i>
+                                        Nova Turma</a>
+                                </div>
+                            {% endif %}
                         </div>
                         <div class="widget-content nopadding">
                             <table class="table table-bordered data-table">
@@ -35,8 +36,6 @@
                                     <th>Nome</th>
                                     <th>Descrição</th>
                                     <th>Data Referência</th>
-                                    <th>Qtd Alunos Matriculados</th>
-                                    <th>Provas Aplicadas</th>
                                     <th width="15%;">Alterações</th>
                                 </tr>
                                 </thead>
@@ -46,24 +45,20 @@
                                         <td>{{ turma.nome }}</td>
                                         <td>{{ turma.descricao }}</td>
                                         <td>{{ turma.data_referencia }}</td>
-                                        <td>{{ turma.alunos.all |length }}</td>
-                                        <td>#</td>
                                         {% if movimentarTurma %}
-                                        <td style="text-align: center">
-                                            <a href="{% url "turma-update" turma.pk %}"
-                                               class="btn btn-primary btn-mini">Editar</a>
-                                            <a href="{% url "turma-delete" turma.pk %}"
-                                               class="btn btn-danger btn-mini">Remover</a>
-                                        </td>
+                                            <td style="text-align: center">
+                                                <a href="{% url "turma-update" turma.pk %}"
+                                                   class="btn btn-primary btn-mini">Editar</a>
+                                                <a href="{% url "turma-delete" turma.pk %}"
+                                                   class="btn btn-danger btn-mini">Remover</a>
+                                            </td>
                                         {% else %}
                                             <td style="text-align: center">
-                                            <a href="{% url "aluno-turma-list" turma.pk %}"
-                                               class="btn btn-primary btn-mini">Movimentar Estudantes</a>
-                                        </td>
+                                                <a href="{% url "aluno-turma-list" turma.pk %}"
+                                                   class="btn btn-primary btn-mini">Acessar turma</a>
+                                            </td>
                                         {% endif %}
                                     </tr>
-
-
                                 {% empty %}
                                     <tr class="gradeX">
                                         <td colspan="4" style="text-align: center">
@@ -74,7 +69,6 @@
                             </table>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

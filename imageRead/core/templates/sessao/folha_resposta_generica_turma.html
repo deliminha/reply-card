@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}AGIL{% endblock %}
+
+{% block body %}
+    <div id="content">
+        <div id="content-header"></div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    {% for aluno in alunos %}
+                        {% include 'sessao/tabela_folha_resposta.html' %}
+                    {% empty %}
+                        <div>
+                            <h4 style="text-align: center">
+                                <span class="label label-important">
+                                    {{ mensagem_erro |upper }}
+                                </span>
+                            </h4>
+                        </div>
+                    {% endfor %}
+                    <div style="padding-left: 70%;" class="form-actions">
+                        <input id="back" class="btn btn-primary" type="reset" value="Voltar"
+                               onclick="history.go(-1)"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .pagebreak {
+            page-break-before: always;
+        }
+    </style>
+{% endblock body %}

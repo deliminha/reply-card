@@ -1,0 +1,69 @@
+{% load static %}
+<div class="widget-box {% if forloop.counter and forloop.counter|add:1|divisibleby:2 %}pagebreak {% endif %}">
+    <div class="widget-title" style="text-align: center; height: auto;">
+        <span>AVALIAÇÃO</span><br>
+        <span>TURMA: {{ sessao.turma|upper }}</span><br>
+        {% if aluno %}
+            <span>Aluno (a): {{ aluno | upper }} Data: {{ sessao.dataAplicacao | date:"d-m-Y" }} </span>
+        {% else %}
+            <span>Aluno (a):  ______________________________________________________
+                Data: {{ sessao.dataAplicacao | date:"d-m-Y" }}
+            </span>
+        {% endif %}
+    </div>
+    <div class="widget-content nopadding">
+        <div id="questoes">
+            <div class="container">
+                <table>
+                    <thead>
+                    <tr>
+                        <td>N°</td>
+                        {% for alternativa in alternativas %}
+                            <td style="text-align: center;">{{ alternativa }}</td>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for questao in quantidade_questoes %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            {% for alternativa in alternativas %}
+                                <td style="width: 18%;text-align: center; ">
+                                    <img src="{% static 'images/gabarito/circulo.jpg' %}" width="15"
+                                         height="20">
+
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="form-actions">
+            <span><strong>Assinatura:</strong> ______________________________________________________</span>
+        </div>
+    </div>
+
+</div>
+<style>
+
+    #questoes {
+        margin-top: 1%;
+        margin-right: 10%;
+        text-align: center;
+        border: 1px solid;
+        border-color: black;
+    }
+
+    .nopadding {
+        margin-left: 5%
+    }
+
+    .container{
+        margin-top: 1%;
+        margin-bottom: 3%;
+        margin-left: 5%;
+    }
+
+</style>

@@ -1,0 +1,69 @@
+<div class="widget-box">
+    <div class="widget-title">
+        <span class="icon"><i class="icon-th"></i></span>
+        <h5>Provas Registradas</h5>
+
+        <div class="buttons">
+            <a href="{% url "questionario-create" %}" class="btn btn-mini btn-success">
+                <i class="icon-book"></i>
+                Nova Prova</a>
+        </div>
+    </div>
+    <div class="widget-content nopadding">
+        <table class="table table-bordered data-table">
+            <thead>
+            <tr>
+                <th width="15%;">
+                    <span>
+                        <i class="icon-download-alt"></i>Baixar Cartão de resposta
+                    </span>
+                </th>
+                <th>Nome</th>
+                <th width="25%">Data Aplicação</th>
+                <th width="20%;">Alterações</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for sessao in sessoes %}
+                <tr>
+                    <td style="text-align: center;">
+                        <a href="{% url 'sessao-folha-resposta' sessao.pk %}">
+                            <i class="icon-download-alt"></i><span>Padrão<br></span>
+                        </a>
+                        <a href="{% url 'sessao-folha-resposta-turma' sessao.pk %}">
+                            <i class="icon-download-alt"></i><span>Por Aluno<br></span>
+                        </a>
+                    </td>
+                    <td style="text-align: center;"><a href="{% url "sessao-details" sessao.pk %}">
+                        <span>{{ sessao.questionario }}</span></a></td>
+                    <td>{{ sessao.dataAplicacao }}</td>
+                    <td style="text-align: center">
+                        <a href="{% url "sessao-update" sessao.pk %}"
+                           class="btn btn-primary btn-mini">Editar</a>
+                        <a href="{% url "sessao-delete" sessao.pk %}"
+                           class="btn btn-danger btn-mini">Remover</a>
+                        <a href="{% url "sessao-details" sessao.pk %}"
+                           class="btn btn-inverse btn-mini">Corrigir</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr class="gradeX">
+                    <td colspan="4" style="text-align: center">
+                        Não há provas aplicadas a turma.
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    a span {
+        color: black;
+    }
+
+    .table th, .table td {
+        vertical-align: middle;
+    }
+</style>
