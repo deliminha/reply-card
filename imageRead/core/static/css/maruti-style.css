@@ -27,14 +27,14 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 }
 
 #header h1 {
-    background: url("../img/logo.png") no-repeat scroll 0 0 transparent;
+    background: url("../img/Exodo.png") no-repeat scroll 0 0 transparent;
     height: 31px;
     left: 15px;
     line-height: 600px;
     overflow: hidden;
     position: relative;
     top:20px; 
-    width: 191px;
+    width: 160px;
 }
 
 #header h1 a {
@@ -69,17 +69,16 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 	opacity: 0.9;
 }
 /* Top user navigation */
-#sidebar{ width:100%; background:#49cced;  position:absolute; clear:both; top:62px;}
+#sidebar{ width:100%; background:#585758;  position:absolute; clear:both; top:62px;}
 #sidebar > ul{ margin:0px; padding:0px; width:100%; display:block; z-index:999;} 
-#sidebar > ul > li { list-style-type:none; float:left; display:block; margin:0px; border-right:1px solid #41bedd; position:relative; padding:10px; cursor:pointer} 
+#sidebar > ul > li { list-style-type:none; float:left; display:block; margin:0px; border-right:1px solid #F5F5F5; position:relative; padding:10px; cursor:pointer} 
 #sidebar > ul > li a{ padding:12px 0;}
 #sidebar > ul > li:hover ul { display:block;} 
-#sidebar > ul > li:hover { background-color:#41bedd;} 
 #sidebar > ul > li:hover a{ background:none;}
-#sidebar > ul li ul { margin:0px; padding:0px; display:none; z-index:999;  position:absolute; left:0px; top:40px;  background:#41bedd; min-width:200px;} 
+#sidebar > ul li ul { margin:0px; padding:0px; display:none; z-index:999;  position:absolute; left:0px; top:40px;  background:#585758; min-width:200px;} 
 #sidebar > ul li ul li { list-style-type:none; margin:0px; font-size:12px;line-height:30px;  } 
 #sidebar > ul li ul li a { display:block; padding:5px 10px; color:#fff; text-decoration:none; font-weight:bold; } 
-#sidebar > ul li ul li:hover a{ background-color:#36a8c5;} 
+#sidebar > ul li ul li:hover a{ background-color:#0EAF50;} 
 #sidebar > ul li span { cursor:pointer; margin:0px 2px 0 5px; font-weight:bold; color:#fff; font-size:11px; }
 #sidebar > ul li a i{ background-image: url("../img/glyphicons-halflings-white.png");     margin-top:4px;    vertical-align: top;}
 #my_menu_input{ display:none;}
@@ -102,22 +101,23 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     margin: 0;
     position: relative;
     padding:6px 0;
-	background:#2e363f;
-	border-left:1px solid #363e48;
+	background:#F5F5F5;
+	border-left:1px solid #F5F5F5;
 }
-#user-nav > ul > li:hover{ background:#232a32;}
+
 #user-nav > ul > li > a {
 	padding: 15px 10px; 
 	display: block;
-	font-size: 12px;
+	font-size: 10px;
+	color: #585758;
 }
 
 #user-nav > ul > li > a:hover, #user-nav > ul > li.open > a {
-	color: #ffffff;
+	color: black;
 }
 #user-nav > ul > li > a > i, #sidebar li a i {
 	vertical-align: top;
-	background-image: url('../img/glyphicons-halflings-white.png');
+	
 	margin-top: 2px;
 }
 #user-nav > ul > li > a:hover > i, #user-nav > ul > li.open > a > i {
@@ -263,7 +263,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 /* Footer */
 #footer {
 	text-align: center;
-	color: #777777; padding:10px 0; background:#2e363f;
+	color: #585758; padding:10px 0; background:#2e363f;
 }
 /* Stat boxes and quick actions */
 .quick-actions_homepage{ width:100%; text-align:center; float:left; margin-top:10px;}
@@ -1279,7 +1279,7 @@ form {
 	#my_menu{ display:none;}
 	#my_menu_input{ display:block;}
 	#user-nav > ul {
-		right: 0px; margin-left:20%!important;
+		right: 0px; margin-left:100%!important;
 		margin-top:0px; width:100%; background:#000;
 		position: relative;
 	}

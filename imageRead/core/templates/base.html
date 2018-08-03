@@ -12,7 +12,7 @@
 
 <!--Header-part-->
 <div id="header">
-    <h1><a href="dashboard.html"></a></h1>
+    <img src="{% static 'img/Exodo.png' %}" style="width:160px; margin-left:20px; margin-top:5px;"> 
 </div>
 <!--close-Header-part-->
 
@@ -27,7 +27,6 @@
 <!--top-Header-menu-->
 <div id="user-nav" class="navbar navbar-inverse">
     <ul class="nav">
-        <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
         <li class=""><a title="" href="{% url "logout" %}"><i class="icon icon-share-alt"></i> <span class="text">Sair</span></a>
         </li>
     </ul>
