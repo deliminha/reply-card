@@ -3,6 +3,9 @@
 {% block title %}AGIL{% endblock %}
 
 {% block body %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
     <div id="content">
         <div id="content-header">
             <div id="breadcrumb">
@@ -39,10 +42,13 @@
                                         <td>{{ unidade.descricao }}</td>
                                         <td>{{ unidade.endereco }}</td>
                                         <td style="text-align: center">
-                                            <a href="{% url "unidade-update" unidade.pk %}"
-                                               class="btn btn-primary btn-mini">Editar</a>
-                                            <a href="{% url "unidade-delete" unidade.pk %}"
-                                               class="btn btn-danger btn-mini">Remover</a>
+                                            <a href="{% url "unidade-update" unidade.pk %}" title="Editar"> 
+                                                <i class="fas fa-lg fa-edit" style="color:#0EAF50"></i></a>
+                                             
+                                            <a href="{% url "unidade-delete" unidade.pk %}" title="Remover">
+                                                <i class="fas fa-lg fa-trash-alt" style="color:#E70000"c></i>
+                                            
+                                            </a>
                                         </td>
                                     </tr>
 
