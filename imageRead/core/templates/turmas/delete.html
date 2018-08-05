@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}AGIL{% endblock %}
+
+{% block body %}
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb">
+                <a href="{% url "index" %}" title="Pagina Inicial" class="tip-bottom">
+                    <i class="icon-home"></i> Inicial
+                </a>
+                <a href="{% url "turma-list" %}" class="current">Turmas
+                </a>
+                <a href="#" class="current">{{ operacao }}</a>
+            </div>
+            <h1>Remoção da Turma</h1>
+            <form method="post">{% csrf_token %}
+                <p>Tem certeza de que deseja excluir "{{ turma }}"?</p>
+                <input type="submit" value="Confirmar"/>
+            </form>
+        </div>
+    </div>
+
+{% endblock body %}

@@ -1,0 +1,47 @@
+[
+  {
+    "model": "aluno.Aluno",
+    "pk": 1,
+    "fields": {
+      "nome": "Aluno 01",
+      "matricula": "201800001",
+      "turma": "1"
+    }
+  },
+  {
+    "model": "aluno.Aluno",
+    "pk": 2,
+    "fields": {
+      "nome": "Aluno 02",
+      "matricula": "201800002",
+      "turma": "1"
+    }
+  },
+  {
+    "model": "aluno.Aluno",
+    "pk": 3,
+    "fields": {
+      "nome": "Aluno 03",
+      "matricula": "201800003",
+      "turma": "2"
+    }
+  },
+  {
+    "model": "aluno.Aluno",
+    "pk": 4,
+    "fields": {
+      "nome": "Aluno 04",
+      "matricula": "201800004",
+      "turma": "2"
+    }
+  },
+  {
+    "model": "aluno.Aluno",
+    "pk": 5,
+    "fields": {
+      "nome": "Aluno 05",
+      "matricula": "201800005",
+      "turma": "2"
+    }
+  }
+]

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}AGIL{% endblock %}
+
+{% block body %}
+
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb">
+                <a href="{% url "index" %}" title="Pagina Inicial" class="tip-bottom">
+                    <i class="icon-home"></i> Inicial
+                </a>
+                {% if aluno.turma %}
+                    <a href="{% url "aluno-turma-list" aluno.turma.pk %}" class="current">Estudantes
+                {% endif %}
+                </a>
+                <a href="#" class="current">{{ operacao }}</a>
+            </div>
+            <h1>{{ operacao }} de Estudantes</h1>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title">
+								<span class="icon">
+									<i class="icon-pencil"></i>
+								</span>
+                            <h5>Dados do Aluno</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <form action="" id="form-wizard" class="form-horizontal" method="post">{% csrf_token %}
+                                {% for field in form %}
+                                    <div class="control-group">
+                                        <label style="color: red;">{{ field.errors }}</label>
+                                        <label class="control-label">{{ field.label }}:</label>
+                                        <div class="controls">{{ field }}</div>
+                                        {% if field.help_text %}
+                                            <p class="help">{{ field.help_text|safe }}</p>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                                <div style="padding-left: 35%;" class="form-actions">
+                                    <input id="back" class="btn btn-primary" type="reset" value="Voltar"
+                                           onclick="history.go(-1)"/>
+                                    <input id="next" class="btn btn-primary" type="submit" value="Salvar"/>
+                                    <div id="status"></div>
+                                </div>
+                                <div id="submitted"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

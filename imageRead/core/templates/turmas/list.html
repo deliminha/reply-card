@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}AGIL{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb">
+                <a href="{% url "index" %}" title="Pagina Inicial" class="tip-bottom">
+                    <i class="icon-home"></i> Inicial
+                </a>
+                <a href="{% url "turma-list" %}" class="current">Turmas
+                </a>
+            </div>
+            <h1>Turmas</h1>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title">
+                            <span class="icon"><i class="icon-th"></i></span>
+                            <h5>Turmas Cadastradas</h5>
+                            {% if movimentarTurma %}
+                                <div class="buttons">
+                                    <a href="{% url "turma-create" %}" class="btn btn-mini" style="background-color:#0EAF50">
+                                            <i class="fas fa-lg fa-book"></i>
+                                        Nova Turma</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="widget-content nopadding">
+                            <table class="table table-bordered data-table">
+                                <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Descrição</th>
+                                    <th>Data Referência</th>
+                                    <th width="15%;">Alterações</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for turma in object_list %}
+                                    <tr class="gradeX">
+                                        <td>{{ turma.nome }}</td>
+                                        <td>{{ turma.descricao }}</td>
+                                        <td>{{ turma.data_referencia }}</td>
+                                        {% if movimentarTurma %}
+                                            <td style="text-align: center">
+                                                <a href="{% url "turma-update" turma.pk %}" title="Editar"> 
+                                                    <i class="fas fa-lg fa-edit" style="color:#0EAF50"></i></a></a>
+                                                <a href="{% url "turma-delete" turma.pk %}" title="Remover">
+                                                    <i class="fas fa-lg fa-trash-alt" style="color:#E70000"c></i></a>
+                                            </td>
+                                        {% else %}
+                                            <td style="text-align: center">
+                                                <a href="{% url "aluno-turma-list" turma.pk %}" title="Acessar Turma">
+                                                    <i class="far fa-lg fa-eye" style="color:#0EAF50"></i>
+                                                </a>
+                                            </td>
+                                        {% endif %}
+                                    </tr>
+                                {% empty %}
+                                    <tr class="gradeX">
+                                        <td colspan="4" style="text-align: center">
+                                            Unidade não possui turmas cadastradas
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

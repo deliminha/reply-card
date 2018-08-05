@@ -1,0 +1,84 @@
+[
+  {
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+      "name": "Administrador",
+      "permissions": [1, 2, 3, 4, 5,
+                      6, 7, 8, 9, 10,
+                      11, 12, 13, 14, 15,
+                      16, 17, 18, 19, 20,
+                      21, 22, 23, 24, 25,
+                      26, 27, 28, 29, 30,
+                      31, 32, 33, 34, 35,
+                      36]
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+      "name": "Coordenador",
+      "permissions": [
+      ]
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 3,
+    "fields": {
+      "name": "Professor",
+      "permissions": [
+      ]
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 4,
+    "fields": {
+      "name": "Aluno",
+      "permissions": [
+      ]
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$100000$CA9rru3ruELA$0YnrFa5FLDEhtkWVNsIlK1YGoYxMikhuls4oBkHbGBI=",
+      "last_login": "2018-07-22T22:25:05.698Z",
+      "is_superuser": true,
+      "username": "miguel",
+      "first_name": "",
+      "last_name": "",
+      "email": "email@email.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2018-07-20T19:48:47.891Z",
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$100000$oPoYcHxZ9rPC$v2K7U0SlXgh5eEObnlUbiNS88xCFkzRNDG+TkLK2IvA=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "email@email.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2018-07-22T22:30:49.573Z",
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  }
+]
