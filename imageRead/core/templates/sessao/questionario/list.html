@@ -38,12 +38,14 @@
                         <span>{{ sessao.questionario }}</span></a></td>
                     <td>{{ sessao.dataAplicacao }}</td>
                     <td style="text-align: center">
-                        <a href="{% url "sessao-update" sessao.pk %}"
-                           class="btn btn-primary btn-mini">Editar</a>
-                        <a href="{% url "sessao-delete" sessao.pk %}"
-                           class="btn btn-danger btn-mini">Remover</a>
-                        <a href="{% url "sessao-details" sessao.pk %}"
-                           class="btn btn-inverse btn-mini">Corrigir</a>
+                        <a href="{% url "sessao-update" sessao.pk %}" title="Editar">
+                                <i class="fas fa-lg fa-edit" style="color:#0EAF50"></i></a>
+
+                        <a href="{% url "sessao-delete" sessao.pk %}" title="Remover">
+                                <i class="fas fa-lg fa-trash-alt" style="color:#E70000"></i>
+                                
+                        <a href="{% url "sessao-details" sessao.pk %}" title="Corrigir">
+                                <i class="fas fa-lg fa-check-circle"></i>                                
                     </td>
                 </tr>
             {% empty %}

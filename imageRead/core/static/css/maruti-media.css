@@ -23,11 +23,11 @@ body {
 .rightzero{ right:0px; display:none;}
 @media (max-width: 480px) {
 	#sidebar > a {
-		background:#49CCED;
+		background:#585758;
 		
 	}
 	#sidebar > ul {
-		background-color: #49CCED;
+		background-color: #585758;
 	}
 #user-nav{ margin:0px auto; top:-31px; border-top:none; width:250px; left:-3%; text-align:center; float:none;}
 #user-nav > ul > li:last-child{ border-right:1px solid #363E48}

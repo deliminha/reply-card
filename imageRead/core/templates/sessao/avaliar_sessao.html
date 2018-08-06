@@ -3,6 +3,7 @@
 {% block title %}AGIL{% endblock %}
 
 {% block body %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}"/>
 
     <div id="content">
@@ -43,10 +44,12 @@
                                         <td>{{ alunoSessao.aluno.nome }}</td>
                                         <td>{{ alunoSessao.media }}</td>
                                         <td style="text-align: center">
-                                            <a href="{% url 'sessao-evaluate' alunoSessao.sessao.pk alunoSessao.pk %}"
-                                               class="btn btn-primary btn-mini">Avaliar</a>
-                                            <a href="{% url 'sessao-aluno-details' alunoSessao.sessao.pk alunoSessao.pk %}"
-                                               class="btn btn-inverse btn-mini">Detalhar</a>
+                                            <a href="{% url 'sessao-evaluate' alunoSessao.sessao.pk alunoSessao.pk %}" title="Avaliar" style="color:#0EAF50">
+                                                    <i class="fas fa-lg fa-clipboard-check"></i>                                                    
+                                            </a>
+                                            <a href="{% url 'sessao-aluno-details' alunoSessao.sessao.pk alunoSessao.pk %}" title="Detalhar" style="color:#E70000">
+                                                    <i class="fas fa-lg fa-search-plus"></i>                                                    
+                                            </a>
                                         </td>
                                     </tr>
                                 {% empty %}
