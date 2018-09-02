@@ -25,20 +25,39 @@
                         </div>
                         <div class="widget-content nopadding">
                             <h3>Questões</h3>
-                            <span>Informar alterativas entre (A e E)</span>
+
+
                             <form action="" name="formWizard" id="form-wizard" class="form-horizontal"
                                   method="post">{% csrf_token %}
                                 <div hidden>
                                     {{ form.descricao_alterativas }}
+                                    {{ form.pesos_alterativas }}
                                 </div>
-                                {% for questao in quantidade_questoes %}
-                                    <span>{{ forloop.counter }}ª Questão*</span>
-                                    <input id="id_questao_{{ forloop.counter }}" name="questao_{{ forloop.counter }}"
-                                           type="text" max="1" maxlength="1"
-                                           onchange="alterarAlterativas(this)"
-                                           value="">
-                                    <br>
-                                {% endfor %}
+                                <table>
+                                    <th colspan="2"><span>Informar alterativas entre (A e E)</span></th>
+                                    <th><label for="sel1">Pesos</label></th>
+                                    {% for questao in quantidade_questoes %}
+                                        <tr>
+                                            <td><span>{{ forloop.counter }}ª Questão*</span></td>
+                                            <td><input id="id_questao_{{ forloop.counter }}"
+                                                       name="questao_{{ forloop.counter }}"
+                                                       type="text" max="1" maxlength="1"
+                                                       onchange="alterarAlterativas(this)"
+                                                       value=""></td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <select class="form-control" id="sel_{{ forloop.counter }}">
+                                                        {% for peso in pesos %}
+                                                            <option value="{{ peso }}">{{ peso }}</option>
+                                                        {% empty %}
+                                                            <option>1</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
                                 <div style="padding-left: 35%;" class="form-actions">
                                     <input id="back" class="btn btn-primary" type="reset" value="Voltar"
                                            onclick="history.go(-1)"/>
@@ -63,6 +82,12 @@
                 document.getElementById('id_questao_' + i).value = alternativas[i - 1] || "";
             }
 
+            let pesosAlternativas = document.getElementById('id_pesos_alterativas').value;
+            let pesos = pesosAlternativas.split(";");
+            for (let i = 1; i <= total; i++) {
+                document.getElementById('sel_' + i).value = pesos[i - 1];
+            }
+
         };
 
         function alterarAlterativas(campo) {
@@ -77,7 +102,8 @@
         }
 
         function gerar() {
-            let acumulador = "";
+            let acumulador_respostas = "";
+            let acumulador_pesos = "";
             let total = {{ questionario.quantidade_questoes }};
             let auxiliar;
             let enviar = true;
@@ -88,11 +114,22 @@
                     enviar = false;
                     break;
                 } else {
-                    acumulador += auxiliar;
+                    acumulador_respostas += auxiliar;
+                }
+            }
+            for (let i = 1; i <= total; i++) {
+                auxiliar = "" + document.getElementById('sel_' + i).value + ";";
+                if (auxiliar === ";") {
+                    alert("Favor indicar o peso de todas as questões");
+                    enviar = false;
+                    break;
+                } else {
+                    acumulador_pesos += auxiliar;
                 }
             }
             if (enviar) {
-                document.getElementById('id_descricao_alterativas').value = acumulador;
+                document.getElementById('id_descricao_alterativas').value = acumulador_respostas;
+                document.getElementById('id_pesos_alterativas').value = acumulador_pesos;
                 document.formWizard.submit();
             }
         }

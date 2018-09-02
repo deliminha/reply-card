@@ -25,8 +25,7 @@ SECRET_KEY = '*m9f3u@htp3szge@g0x3rp!z_akb7&7=%bc=sl1tt_-s9tx&oy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['exodo.herokuapp.com','localhost']
-
+ALLOWED_HOSTS = ['exodo.herokuapp.com', 'localhost']
 
 # Application definition
 
@@ -58,6 +57,11 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
+FILE_UPLOAD_HANDLERS = [
+    'django.core.files.uploadhandler.MemoryFileUploadHandler',
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+]
+
 ROOT_URLCONF = 'imageRead.urls'
 
 TEMPLATES = [
@@ -78,7 +82,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'imageRead.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -88,7 +91,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -108,7 +110,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -121,7 +122,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Auth
 LOGIN_URL = 'login'

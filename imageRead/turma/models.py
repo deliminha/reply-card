@@ -10,6 +10,7 @@ class Questionario(models.Model):
     media                 = models.PositiveIntegerField('Média')
     quantidade_questoes   = models.PositiveIntegerField('Quantidade Questões')
     descricao_alterativas = models.CharField('Descrição de Alternativas', max_length=60, blank=True)
+    pesos_alterativas     = models.CharField('Pesos das Alternativas',    max_length=60, blank=True)
 
     # Retorna o nome dos atributos
     def __str__(self):

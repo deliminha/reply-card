@@ -1,6 +1,8 @@
+import os
+import threading
+
 import cv2
 import numpy as np
-import os
 
 try:
     from .scanner import Scanner
@@ -8,20 +10,22 @@ except:
     from scanner import Scanner
 
 
-class CameraRecognition:
+class CameraRecognition(object):
+    MAX_FEATURES = 500
+    GOOD_MATCH_PERCENT = 0.15
+    HEIGHT = 0
+    WIDTH = 0
+    BLUE = (255, 0, 0)
+    GREEN = (0, 255, 0)
+    TEST_GENERIC = "dataset/imgs/gabarito_template_geral.png"
 
     def __init__(self, amount_question=10):
-        self.TEST_GENERIC = "dataset/imgs/gabarito_template_geral.png"
+
         self.TEMPLATE_ALTERNATIVAS = self.load_image_gray('dataset/imgs/gabarito_template_geral_alternativas.png')
-        self.MAX_FEATURES = 500
-        self.GOOD_MATCH_PERCENT = 0.15
-        self.HEIGHT = 0
-        self.WIDTH = 0
+        self.TEMPLATE_ALTERNATIVAS_SCANNER = self.load_image_gray(
+            'dataset/imgs/gabarito_template_geral_alternativas_scanner.png')
         self.AMOUNT_QUESTION = amount_question
-        self.BLUE = (255, 0, 0)
-        self.GREEN = (0, 255, 0)
-        self.INIT = None
-        self.END = None
+        threading.Thread.__init__(self)
 
     def get_test_generic(self):
 
@@ -29,7 +33,7 @@ class CameraRecognition:
 
     def load_image(self, path_image):
 
-        path_full = os.path.join(os.path.dirname(__file__),path_image)
+        path_full = os.path.join(os.path.dirname(__file__), path_image)
         return cv2.imread(path_full, cv2.IMREAD_COLOR)
 
     def load_image_gray(self, path_image):
@@ -94,6 +98,7 @@ class CameraRecognition:
             return im1Reg, h
         except:
             print("ERROR 'align_images' IMAGE ")
+            self.cap.release()
             cv2.destroyAllWindows()
             exit(0)
 
@@ -118,9 +123,12 @@ class CameraRecognition:
 
             # Detectando corpos
             keypoints = detector.detect(image)
+            im_with_keypoints = cv2.drawKeypoints(image, keypoints, np.array([]), (0, 0, 255),
+                                                  cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
             return keypoints
         except:
             print("ERROR 'coordinates_question' IMAGE")
+            self.cap.release()
             cv2.destroyAllWindows()
             exit(0)
 
@@ -134,22 +142,31 @@ class CameraRecognition:
             return response
         except:
             print("ERROR 'evaluate_question' IMAGE ")
+            self.cap.release()
             cv2.destroyAllWindows()
             exit(0)
 
     def get_answer(self, image):
         try:
+
             gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-            result = cv2.matchTemplate(gray, self.TEMPLATE_ALTERNATIVAS, cv2.TM_CCOEFF_NORMED)
+            if self.isImage:
+                result = cv2.matchTemplate(gray, self.TEMPLATE_ALTERNATIVAS_SCANNER, cv2.TM_CCOEFF_NORMED)
+            else:
+                result = cv2.matchTemplate(gray, self.TEMPLATE_ALTERNATIVAS, cv2.TM_CCOEFF_NORMED)
+
             min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
 
-            self.HEIGHT, self.WIDTH = self.TEMPLATE_ALTERNATIVAS.shape[:2]
-
+            if self.isImage:
+                self.HEIGHT, self.WIDTH = self.TEMPLATE_ALTERNATIVAS_SCANNER.shape[::1]
+            else:
+                self.HEIGHT, self.WIDTH = (53, 440)
             # Create Bounding Box
             top_left = max_loc
             bottom_right = (top_left[0] + self.WIDTH, top_left[1] + self.HEIGHT)
 
+            cv2.rectangle(image, top_left, bottom_right, (0, 0, 255), 2)
             answer_values = {}
             # Particiona o gabarito e identifica isoladamente a resposta de cada questão
             for i in range(self.AMOUNT_QUESTION):
@@ -157,7 +174,6 @@ class CameraRecognition:
                 top_left = (top_left[0], top_left[1] + self.HEIGHT)
 
                 cv2.rectangle(image, top_left, bottom_right, (0, 0, 255), 2)
-
                 cropped = image[
                           top_left[1]:bottom_right[1],
                           top_left[0]:bottom_right[0]
@@ -203,15 +219,19 @@ class CameraRecognition:
             # Note: The ORB detector to get the top 1000 matches, 350 is essentially a min 35% match
             self.threshold = 250
             is_valid = len(matches) > self.threshold
-            cv2.imshow("corrector", image_full)
-            if is_valid:
-                self.delimiter(image_full, self.BLUE)
-
+            if not self.isImage:
                 cv2.imshow("corrector", image_full)
-            # If matches exceed our threshold then object has been detected
+                if is_valid:
+                    self.delimiter(image_full, self.BLUE)
+
+                    cv2.imshow("corrector", image_full)
+                    cv2.waitKey(10)
+                    cv2.destroyAllWindows()
+                # If matches exceed our threshold then object has been detected
             return is_valid
         except:
             print("ERROR 'identify_alternative' IMAGE ")
+            self.cap.release()
             cv2.destroyAllWindows()
             exit(0)
 
@@ -236,6 +256,7 @@ class CameraRecognition:
             return cropped_mask, cropped
         except:
             print("ERROR 'delimiter' IMAGE ")
+            self.cap.release()
             cv2.destroyAllWindows()
             exit(0)
 
@@ -246,21 +267,37 @@ class CameraRecognition:
         _, crooped = self.delimiter(image, self.BLUE)
         return status, crooped
 
-    def image_processing(self):
+    def image_processing(self, image):
+        scanner = Scanner()
+        imReg = None
+        self.isImage = True
+        try:
+            image = self.load_image(image)
+            status, _ = self.identify_test(image)
+            scanning = scanner.scanning(image)
+            if scanning is not None:
+                imReg = scanning.copy()
+            if (cv2.waitKey(1) & 0xFF == ord('q')) or status:
+                if imReg is not None:
+                    respostas = self.get_answer(imReg)
+                    cv2.destroyAllWindows()
 
-        frame = self.load_image('dataset/photo/t2.png')
-        print(self.get_answer(frame))
-
-        cv2.destroyAllWindows()
+                    return respostas
+                else:
+                    print("ERRO 'scanner' IMAGE")
+        except:
+            print("ERRO 'image_processing' IMAGE")
+            cv2.destroyAllWindows()
 
     def camera_processing(self):
         scanner = Scanner()
-        cap = cv2.VideoCapture(0)
-
+        self.cap = cv2.VideoCapture(0)
+        imReg = None
+        self.isImage = False
         try:
-            while (True):
+            while (self.cap.isOpened()):
 
-                ret, frame = cap.read()
+                ret, frame = self.cap.read()
                 frame = cv2.flip(frame, 1)
                 status, cropped = self.identify_test(frame.copy())
                 cropped = cv2.flip(cropped, 1)
@@ -270,22 +307,46 @@ class CameraRecognition:
                 if (cv2.waitKey(1) & 0xFF == ord('q')) or status:
                     # imReg, h = self.align_images(cropped)
                     if imReg is not None:
+                        respostas = self.get_answer(imReg)
+                        self.cap.release()
+                        cv2.destroyAllWindows()
 
-                        return self.get_answer(imReg)
+                        return respostas
                     else:
                         print("ERRO 'scanner' IMAGE")
                     break
         except:
             print("ERRO 'camera_processing' IMAGE")
-        finally:
-            cap.release()
+            self.cap.release()
             cv2.destroyAllWindows()
+        self.cap.release()
+        cv2.destroyAllWindows()
+
+    def stop(self):
+        self.cap.release()
+        cv2.destroyAllWindows()
+
+    def image_processing_test(self):
+        self.isImage = True
+        frame = self.load_image('dataset/imgs/gabarito_template_geral_preenchido.png')
+        self.image_processing('dataset/imgs/gabarito_template_geral_preenchido.png')
+
+
+class myThread(threading.Thread):
+
+    def __init__(self):
+        threading.Thread.__init__(self)
+        self.camera = CameraRecognition()
+
+    def run_thread(self, quantidadeQuestao):
+        if quantidadeQuestao is not None:
+            self.camera = CameraRecognition(quantidadeQuestao)
+        return self.camera.camera_processing()
 
 
 if __name__ == "__main__":
     recognition = CameraRecognition()
 
-    recognition.camera_processing()
-    # recognition.image_processing()
+    recognition.image_processing_test()
 
     cv2.destroyAllWindows()

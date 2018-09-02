@@ -1,7 +1,9 @@
+import os
 import string
 from functools import reduce
 
 from django.contrib.auth.decorators import login_required
+from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -12,7 +14,7 @@ from django.views.generic.list import ListView
 
 from .models import Turma, Sessao, Questionario
 from ..aluno.models import Aluno, AlunoSessao
-from ..core.corretor.CameraRecognition import CameraRecognition
+from ..core.corretor.CameraRecognition import CameraRecognition, myThread
 
 
 # Create your views here.
@@ -82,7 +84,7 @@ class QuestionarioCreate(CreateView):
 @method_decorator(login_required, name='dispatch')
 class QuestionarioCreateQuestoes(UpdateView):
     model = Questionario
-    fields = ['descricao_alterativas']
+    fields = ['descricao_alterativas', 'pesos_alterativas']
     extra_context = {
         "operacao": "Atualização"
     }
@@ -94,6 +96,7 @@ class QuestionarioCreateQuestoes(UpdateView):
         questionario = Questionario.objects.get(pk=self.kwargs.get('pk'))
         extra_context["questionario"] = questionario
         extra_context["quantidade_questoes"] = range(questionario.quantidade_questoes)
+        extra_context["pesos"] = range(1, questionario.quantidade_questoes + 1)
         return extra_context
 
 
@@ -243,18 +246,16 @@ class SessaoAlunoDetails(DetailView):
             extra_context["quantidade_questoes"] = range(sessao.questionario.quantidade_questoes)
             return extra_context
 
-        extra_context["mensagem_erro"] = "Prova do(a) Aluno(a) '{}' ainda não foi avaliada!".format(
-            alunoSessao.aluno.nome)
+        extra_context["mensagem_erro"] = "Prova do(a) Aluno(a) '{}' ainda não foi avaliada!".format(alunoSessao.aluno.nome)
         return extra_context
 
 
 @login_required
 def sessaoEvaluate(request, pk_1, pk_2):
-    print(pk_1, pk_2)
     sessao = Sessao.objects.get(pk=pk_1)
-
-    camera = CameraRecognition(sessao.questionario.quantidade_questoes)
-    answer = camera.camera_processing()
+    cameraThread = myThread()
+    cameraThread.start()
+    answer = cameraThread.run_thread(sessao.questionario.quantidade_questoes)
 
     if answer:
         descricao_resposta = []
@@ -272,7 +273,9 @@ def sessaoEvaluate(request, pk_1, pk_2):
                 descricao_resposta.append([])
                 continue
 
-        descricao_pontuacao, media, descricao_resposta = evaluate_test(sessao.questionario.descricao_alterativas, descricao_resposta)
+        descricao_pontuacao, media, descricao_resposta = evaluate_test(sessao.questionario.descricao_alterativas,
+                                                                       sessao.questionario.pesos_alterativas,
+                                                                       descricao_resposta)
         alunoSessao = AlunoSessao.objects.get(pk=pk_2)
         aluno = alunoSessao.aluno
 
@@ -290,25 +293,106 @@ def sessaoEvaluate(request, pk_1, pk_2):
             alunoSessao.media = media
             alunoSessao.save()
 
+    cameraThread.join(0)
     return redirect(reverse_lazy('sessao-details', kwargs={'pk': sessao.pk}))
 
 
-def evaluate_test(quest_test, quest_aluno):
+def evaluate_test(quest_test, pesos_test, quest_aluno):
     nova_quest_aluno = ''
     descricao_pontuacao = ''
     for q_test, q_aluno in zip(quest_test.split(";"), quest_aluno):
         if not q_aluno:
-            nova_quest_aluno +=';'
+            nova_quest_aluno += ';'
             descricao_pontuacao += '0;'
             continue
 
-        nova_quest_aluno += q_aluno[0]+';'
+        nova_quest_aluno += q_aluno[0] + ';'
         if q_test == q_aluno:
             descricao_pontuacao += '1;'
         else:
             descricao_pontuacao += '0;'
 
+    pontuacoes = descricao_pontuacao[:-1].split(';')
+    pesos = pesos_test[:-1].split(';')
 
-    valores = descricao_pontuacao[:-1].split(';')
-    media = reduce(lambda x, y: int(x) + int(y), valores)
+    pontuaca_ponderada = [int(nota)*10 * int(peso) for nota, peso in zip(pontuacoes,pesos)]
+    soma_pontuacao_ponderada = reduce(lambda x, y: int(x) + int(y), pontuaca_ponderada)
+    pesos_soma = reduce(lambda x, y: int(x) + int(y), pesos)
+    media = soma_pontuacao_ponderada / pesos_soma
     return descricao_pontuacao, media, nova_quest_aluno
+
+
+@login_required
+def upload_file_turma(request, pk_1):
+
+    if request.method == 'POST':
+        for myfile  in request.FILES.getlist('arquivo'):
+            fs = FileSystemStorage(location=os.path.join(os.path.dirname(__file__), '../core/corretor/dataset/submetidas/'))
+            filename = fs.save(myfile.name, myfile)
+
+            matricula = myfile._name.split('.')[0]
+            alunoSessao = AlunoSessao.objects.filter(sessao_id=pk_1, aluno__matricula=matricula).first()
+            uploaded_file_url = fs.path(filename)
+            if alunoSessao:
+                generate_alunoSessao(pk_1, alunoSessao.pk, uploaded_file_url)
+
+        return redirect(reverse_lazy('sessao-details', kwargs={'pk': pk_1}))
+
+
+@login_required
+def upload_file(request, pk_1, pk_2):
+
+    if request.method == 'POST':
+        myfile = request.FILES['arquivo']
+        fs = FileSystemStorage(location=os.path.join(os.path.dirname(__file__), '../core/corretor/dataset/submetidas/'))
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.path(filename)
+
+        sessao, alunoSessao = generate_alunoSessao(pk_1,pk_2,uploaded_file_url)
+
+        return redirect(reverse_lazy('sessao-details', kwargs={'pk': sessao.pk}))
+
+
+def generate_alunoSessao(pk_1,pk_2,uploaded_file_url):
+    sessao = Sessao.objects.get(pk=pk_1)
+    alunoSessao = AlunoSessao.objects.get(pk=pk_2)
+    recognition = CameraRecognition()
+
+    answer = recognition.image_processing(uploaded_file_url)
+
+    if answer:
+        descricao_resposta = []
+        for key, question in answer.items():
+            while None in question:
+                question.remove(None)
+
+            if len(question) == 1:
+                for alternative in question:
+                    if alternative is not None:
+                        descricao_resposta.append(alternative)
+                continue
+
+            if len(question) in range(10):
+                descricao_resposta.append([])
+                continue
+
+        descricao_pontuacao, media, descricao_resposta = evaluate_test(sessao.questionario.descricao_alterativas,
+                                                                       sessao.questionario.pesos_alterativas,
+                                                                       descricao_resposta)
+        aluno = alunoSessao.aluno
+
+        if not alunoSessao:
+            AlunoSessao.objects.create(
+                aluno_id=aluno.pk,
+                sessao_id=sessao.pk,
+                media=media,
+                descricao_alterativas=descricao_resposta,
+                descricao_pontuacao=descricao_pontuacao
+            )
+        else:
+            alunoSessao.descricao_alterativas = descricao_resposta
+            alunoSessao.descricao_pontuacao = descricao_pontuacao
+            alunoSessao.media = media
+            alunoSessao.save()
+
+    return sessao, alunoSessao
