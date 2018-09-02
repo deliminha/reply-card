@@ -1,33 +1,57 @@
-# reply-card
+# AGIL Sistemas
 
-Repositório para testes da biblioteca OpenCV, 
-o projeto destinasse a identificar elementos através da WebCan 
+## Reply Card
+
+Este projeto foi gerado com [Django](https://github.com/django/django) version 2.0.
 
 #### Set Up
 Clone esse projeto:
 
-~~~~
-$ git clone https://github.com/I-am-Miguel/reply-card.git
-~~~~
+`$ https://github.com/I-am-Miguel/reply-card.git`
 
+`$ cd reply-card`
 
-Certifique-se que as dependencias do projeto se encontram atualizadas:
-~~~~
-sudo apt-get install libopencv-dev python-opencv
-~~~~
-
-#### Rodando localmente
-Você primeiramente deve adicionar um ambiente virtual
-~~~~
+Crie um ambiente virtual e instale as dependências:
+~~~~bash
 $ virtualenv venv
-$ source /venv/bin/activate
+(venv)$ source /venv/bin/activate
+(venv)$ pip install -r requeriments.txt
 ~~~~
 
-Instalar as dependências do projeto
+Antes de iniciar o servidor, será necessário coletar
+os arquivos estáticos da aplicação:
 ~~~~
-(venv)$ pip install -r requirements.txt
+(venv)$ python manage.py collectstatic
 ~~~~
-E por fim, rodar o projeto localmente
+
+## Servidor de desenvolvimento
+Setup banco de dados:
+
+1) Limpe o histórico para todas as apps, o exemplo abaixo limpa o histórico da app de nome core.
 ~~~~
-(venv)$ python WebCan.py
+(venv)$ python manage.py makemigrations
+(venv)$ python manage.py migrate --fake core zero
 ~~~~
+
+2) Remova os arquivos de migração:
+
+~~~~
+(venv)$ find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+(venv)$ find . -path "*/migrations/*.pyc"  -delete
+~~~~
+3) Crie as migrações iniciais:
+
+~~~~bash
+(venv)$ python manage.py makemigrations
+(venv)$ python manage.py migrate --fake-initial
+~~~~
+4) Inicialize o banco com informações estáticas:
+
+~~~~bash
+(venv)$ python manage.py loaddata data
+~~~~
+Rodando a aplicação
+~~~~bash
+$ python manage.py runserver
+~~~~
+Agora você pode ir até [http://localhost:8000](http://localhost:8000).

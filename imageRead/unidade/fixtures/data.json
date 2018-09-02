@@ -1,0 +1,56 @@
+[
+  {
+    "model": "unidade.Endereco",
+    "pk": 1,
+    "fields": {
+      "cep": "59000000",
+      "rua": "rua central",
+      "numero": "s/n",
+      "bairro": "Centro",
+      "cidade": "Natal",
+      "estado": "RN"
+    }
+  },
+  {
+    "model": "unidade.Endereco",
+    "pk": 2,
+    "fields": {
+      "cep": "59000000",
+      "rua": "rua Horizonte",
+      "numero": "1000",
+      "bairro": "Cidade Alta",
+      "cidade": "Natal",
+      "estado": "RN"
+    }
+  },
+  {
+    "model": "unidade.Endereco",
+    "pk": 3,
+    "fields": {
+      "cep": "59000000",
+      "rua": "rua Paulo Freire",
+      "numero": "12",
+      "bairro": "Centro",
+      "cidade": "Natal",
+      "estado": "RN"
+    }
+  },
+  {
+    "model": "unidade.Unidade",
+    "pk": 1,
+    "fields": {
+      "nome": "UFRN",
+      "descricao": "Universidade Federal do Rio Grande do Norte",
+      "endereco": 2
+    }
+  },
+  {
+    "model": "unidade.Unidade",
+    "pk": 2,
+    "fields": {
+      "nome": "IMD",
+      "descricao": "Instituto metrópole digital",
+      "endereco": 1
+    }
+  }
+]

@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}AGIL{% endblock %}
+
+{% block body %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+          integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}"/>
+
+    <script>
+        function abrirArquivo() {
+            document.getElementById("arquivo").click();
+            document.getElementById("uploadArquivo").action = "../../" +{{ sessao.pk }} + "/sessao/detalhes/aluno/turma/upload";
+        }
+
+        function abrirArquivoIndividual(sessao_pk, alunoSessao_pk) {
+            document.getElementById("arquivoIndividual").click();
+            document.getElementById("uploadArquivoIndividual").action = "../../" + sessao_pk + "/sessao/detalhes/aluno/" + alunoSessao_pk + "/upload";
+        }
+
+        function enviar(form) {
+             document.getElementById(form).submit();
+        }
+
+    </script>
+
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb">
+                <a href="{% url "index" %}" title="Pagina Inicial" class="tip-bottom">
+                    <i class="icon-home"></i> Inicial
+                </a>
+                <a href="{% url "turma-aluno-list" %}" class="current">Turmas</a>
+                <a href="#" class="current">{{ operacao }}</a>
+            </div>
+            <h1>{{ sessao.questionario.nome }}</h1>
+        </div>
+        <div class="container-fluid" style="padding-left:5%;width:85%;">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title">
+                            <span class="icon"><i class="icon-th"></i></span>
+                            <h5>Correção</h5>
+                            <div class="buttons">
+
+                                <div class="btn btn-mini btn-success" onclick=abrirArquivo()>
+                                    <i class="fas fa-lg icon-folder-open" style="color:#585758"></i>
+                                    Upload de Gabaritos
+                                </div>
+                                <div class="btn btn-mini btn-success" onclick=enviar("uploadArquivo")>
+                                    <i class="fas fa-lg icon-folder-open" style="color:#585758"></i>
+                                    Avaliar
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <table class="table table-bordered data-table">
+                                <thead>
+                                <tr>
+                                    <th width="15px;">Nª Chamada</th>
+                                    <th width="20%">Matricula</th>
+                                    <th>Nome</th>
+                                    <th width="10%">Média</th>
+                                    <th width="15%;">Alterações</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for alunoSessao in alunosSessao %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ alunoSessao.aluno.matricula }}</td>
+                                        <td>{{ alunoSessao.aluno.nome }}</td>
+                                        <td>{{ alunoSessao.media }}</td>
+                                        <td style="text-align: center">
+                                            <a href="{% url 'sessao-evaluate' alunoSessao.sessao.pk alunoSessao.pk %}"
+                                               title="Avaliar" style="color:#0EAF50">
+                                                <i class="fas fa-lg fa-clipboard-check"></i>
+                                            </a>
+                                            <a href="{% url 'sessao-aluno-details' alunoSessao.sessao.pk alunoSessao.pk %}"
+                                               title="Detalhar" style="color:#E70000">
+                                                <i class="fas fa-lg fa-search-plus"></i>
+                                            </a>
+                                            <a href="#"
+                                               onclick="abrirArquivoIndividual({{ alunoSessao.sessao.pk }}, {{ alunoSessao.pk }})"
+                                               title="Anexar Gabarito" style="color:#0EAF50">
+                                                <i class="fas fa-lg fa-book"></i>
+                                            </a>
+                                            <a href="#" onclick="enviar('uploadArquivoIndividual')"
+                                               title="Submeter Gabarito" style="color:#0EAF50">
+                                                <i class="fas fa-lg fa-book"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr class="gradeX">
+                                        <td colspan="4" style="text-align: center">
+                                            Turma não possui alunos matriculados
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <form action="{% url 'aluno-turma-list' sessao.turma.pk %}" method="get">
+                                <div style="padding-left: 90%;" class="form-actions">
+                                    <input id="back" class="btn btn-primary" type="submit" value="Voltar"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form method="post" action="" id="uploadArquivo" enctype="multipart/form-data">{% csrf_token %}
+        <input type="file" id="arquivo" name="arquivo" webkitdirectory multiple/>
+    </form>
+    <form hidden method="post" action="" id="uploadArquivoIndividual" enctype="multipart/form-data">{% csrf_token %}
+        <input type="file" id="arquivoIndividual" name="arquivo"/>
+    </form>
+{% endblock body %}

@@ -1,0 +1,41 @@
+[
+  {
+    "model": "turma.Turma",
+    "pk": 1,
+    "fields": {
+      "nome": "EF6A",
+      "descricao": "Ensino Fundamental 6° Ano",
+      "data_referencia": "2018-01-01"
+    }
+  },
+  {
+    "model": "turma.Turma",
+    "pk": 2,
+    "fields": {
+      "nome": "EF6B",
+      "descricao": "Ensino Fundamental 6° Ano",
+      "data_referencia": "2018-01-01"
+    }
+  },
+  {
+    "model": "turma.questionario",
+    "pk": 1,
+    "fields": {
+      "nome": "Prova 01 - Lingua Portuguesa",
+      "pontMax": 100,
+      "pontMin": 0,
+      "media": 50,
+      "quantidade_questoes": 10,
+      "descricao_alterativas": "A;A;A;A;A;A;A;A;A;A;"
+    }
+  },
+  {
+    "model": "turma.sessao",
+    "pk": 1,
+    "fields": {
+      "questionario": 1,
+      "dataAplicacao": "2018-07-22",
+      "turma": 2
+    }
+  }
+]
