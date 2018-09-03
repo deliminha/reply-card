@@ -255,45 +255,45 @@ def sessaoEvaluate(request, pk_1, pk_2):
     sessao = Sessao.objects.get(pk=pk_1)
     cameraThread = myThread()
     cameraThread.start()
-    answer = cameraThread.run_thread(sessao.questionario.quantidade_questoes)
+    status, answer = cameraThread.run_thread(sessao.questionario.quantidade_questoes)
+    if status:
+        if answer:
+            descricao_resposta = []
+            for key, question in answer.items():
+                if None in question:
+                    question.remove(None)
 
-    if answer:
-        descricao_resposta = []
-        for key, question in answer.items():
-            if None in question:
-                question.remove(None)
+                if len(question) == 1:
+                    for alternative in question:
+                        if alternative is not None:
+                            descricao_resposta.append(alternative)
+                    continue
 
-            if len(question) == 1:
-                for alternative in question:
-                    if alternative is not None:
-                        descricao_resposta.append(alternative)
-                continue
+                if len(question) in range(10):
+                    descricao_resposta.append([])
+                    continue
 
-            if len(question) in range(10):
-                descricao_resposta.append([])
-                continue
+            descricao_pontuacao, media, descricao_resposta = evaluate_test(sessao.questionario.descricao_alterativas,
+                                                                           sessao.questionario.pesos_alterativas,
+                                                                           descricao_resposta)
+            alunoSessao = AlunoSessao.objects.get(pk=pk_2)
+            aluno = alunoSessao.aluno
 
-        descricao_pontuacao, media, descricao_resposta = evaluate_test(sessao.questionario.descricao_alterativas,
-                                                                       sessao.questionario.pesos_alterativas,
-                                                                       descricao_resposta)
-        alunoSessao = AlunoSessao.objects.get(pk=pk_2)
-        aluno = alunoSessao.aluno
+            if not alunoSessao:
+                AlunoSessao.objects.create(
+                    aluno_id=aluno.pk,
+                    sessao_id=sessao.pk,
+                    media=media,
+                    descricao_alterativas=descricao_resposta,
+                    descricao_pontuacao=descricao_pontuacao
+                )
+            else:
+                alunoSessao.descricao_alterativas = descricao_resposta
+                alunoSessao.descricao_pontuacao = descricao_pontuacao
+                alunoSessao.media = media
+                alunoSessao.save()
 
-        if not alunoSessao:
-            AlunoSessao.objects.create(
-                aluno_id=aluno.pk,
-                sessao_id=sessao.pk,
-                media=media,
-                descricao_alterativas=descricao_resposta,
-                descricao_pontuacao=descricao_pontuacao
-            )
-        else:
-            alunoSessao.descricao_alterativas = descricao_resposta
-            alunoSessao.descricao_pontuacao = descricao_pontuacao
-            alunoSessao.media = media
-            alunoSessao.save()
-
-    cameraThread.join(0)
+        cameraThread.join(0)
     return redirect(reverse_lazy('sessao-details', kwargs={'pk': sessao.pk}))
 
 

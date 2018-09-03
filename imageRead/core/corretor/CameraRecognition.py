@@ -304,16 +304,21 @@ class CameraRecognition(object):
                 scanning = scanner.scanning(cropped)
                 if scanning is not None:
                     imReg = scanning.copy()
-                if (cv2.waitKey(1) & 0xFF == ord('q')) or status:
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    self.cap.release()
+                    cv2.destroyAllWindows()
+                    return False, None
+                if status:
                     # imReg, h = self.align_images(cropped)
                     if imReg is not None:
                         respostas = self.get_answer(imReg)
                         self.cap.release()
                         cv2.destroyAllWindows()
 
-                        return respostas
+                        return True, respostas
                     else:
                         print("ERRO 'scanner' IMAGE")
+                        return False
                     break
         except:
             print("ERRO 'camera_processing' IMAGE")
