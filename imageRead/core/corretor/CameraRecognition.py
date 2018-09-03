@@ -319,7 +319,6 @@ class CameraRecognition(object):
                     else:
                         print("ERRO 'scanner' IMAGE")
                         return False
-                    break
         except:
             print("ERRO 'camera_processing' IMAGE")
             self.cap.release()
