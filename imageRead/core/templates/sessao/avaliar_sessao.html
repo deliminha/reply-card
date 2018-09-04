@@ -8,6 +8,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}"/>
 
     <script>
+        window.load = function () {
+
+        };
+
         function abrirArquivo() {
             document.getElementById("arquivo").click();
             document.getElementById("uploadArquivo").action = "../../" +{{ sessao.pk }} + "/sessao/detalhes/aluno/turma/upload";
@@ -19,7 +23,15 @@
         }
 
         function enviar(form) {
-             document.getElementById(form).submit();
+            if(form ==="uploadArquivoIndividual" &&
+                document.getElementById("arquivoIndividual").value === ""){
+                alert("Para continuar a operação, será necessário realizar o upload dos gabaritos")
+            }else if(form ==="uploadArquivo"  &&
+                document.getElementById("arquivo").value === ""){
+                alert("Para continuar a operação, será necessário realizar o upload dos gabaritos")
+            }else{
+                document.getElementById(form).submit();
+            }
         }
 
     </script>
@@ -112,10 +124,10 @@
             </div>
         </div>
     </div>
-    <form method="post" action="" id="uploadArquivo" enctype="multipart/form-data">{% csrf_token %}
-        <input type="file" id="arquivo" name="arquivo" webkitdirectory multiple/>
+    <form hidden method="post" action="" id="uploadArquivo" enctype="multipart/form-data">{% csrf_token %}
+        <input required type="file" id="arquivo" name="arquivo" webkitdirectory multiple/>
     </form>
     <form hidden method="post" action="" id="uploadArquivoIndividual" enctype="multipart/form-data">{% csrf_token %}
-        <input type="file" id="arquivoIndividual" name="arquivo"/>
+        <input required type="file" id="arquivoIndividual" name="arquivo"/>
     </form>
 {% endblock body %}
