@@ -141,5 +141,5 @@ class Scanner:
 
 if __name__ == "__main__":
     scanner = Scanner()
-    # scanner.image_processing()
-    scanner.camera_processing()
+    scanner.image_processing()
+    #scanner.camera_processing()

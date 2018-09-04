@@ -39,7 +39,11 @@ urlpatterns = [
     path('<int:pk>/sessao/folha_resposta_turma',  views.SessaoGabaritoTurma.as_view(), name='sessao-folha-resposta-turma'),
 
 
-    path('<int:pk>/sessao/detalhes',                    views.SessaoDetails.as_view(),      name='sessao-details'),
-    path('<int:pk_1>/sessao/detalhes/aluno/<int:pk_2>', views.SessaoAlunoDetails.as_view(), name='sessao-aluno-details'),
-    path('<int:pk_1>/sessao/detalhes/aluno/<int:pk_2>/avaliar', views.sessaoEvaluate, name='sessao-evaluate'),
+    path('<int:pk>/sessao/detalhes',                            views.SessaoDetails.as_view(),      name='sessao-details'),
+    path('<int:pk_1>/sessao/detalhes/aluno/<int:pk_2>',         views.SessaoAlunoDetails.as_view(), name='sessao-aluno-details'),
+
+
+    path('<int:pk_1>/sessao/detalhes/aluno/<int:pk_2>/avaliar', views.sessaoEvaluate,   name='sessao-evaluate'),
+    path('<int:pk_1>/sessao/detalhes/aluno/<int:pk_2>/upload',  views.upload_file,      name='sessao-evaluate_file'),
+    path('<int:pk_1>/sessao/detalhes/aluno/turma/upload',       views.upload_file_turma,      name='sessao-evaluate_file_turma'),
 ]

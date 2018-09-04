@@ -1,3 +1,6 @@
+from decimal import Decimal
+
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.urls import reverse
 
@@ -26,7 +29,7 @@ class Aluno(models.Model):
 class AlunoSessao(models.Model):
     aluno                   = models.ForeignKey(Aluno, on_delete= models.CASCADE)
     sessao                  = models.ForeignKey(Sessao, on_delete=models.CASCADE)
-    media                   = models.PositiveIntegerField('Média')
+    media                   = models.DecimalField('Média', decimal_places=2, max_digits=12, validators=[MinValueValidator(Decimal('0.01'))])
     descricao_alterativas   = models.CharField('Descrição de Alterativas', max_length=60, blank=True)
     descricao_pontuacao     = models.CharField('Descrição de Pontuação', max_length=60, blank=True)
 

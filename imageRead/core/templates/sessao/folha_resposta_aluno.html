@@ -39,6 +39,9 @@
                                 <div id="quest_alternativas" hidden>
                                     {{ questionario.descricao_alterativas }}
                                 </div>
+                                <div id="pesos_alternativas" hidden>
+                                    {{ questionario.pesos_alterativas }}
+                                </div>
                                 <div id="aluno_alternativas" hidden>
                                     {{ alunosessao.descricao_alterativas }}
                                 </div>
@@ -49,8 +52,9 @@
                                     <thead>
                                     <tr>
                                         <th>N°</th>
-                                        <th>Resposta Aluno</th>
+                                        <th style="width: 40%;">Resposta Aluno</th>
                                         <th>Resposta Correta</th>
+                                        <th>Pesos</th>
                                         <th>Pontuação</th>
                                     </tr>
                                     </thead>
@@ -67,12 +71,15 @@
                                                 <span id="id_questao_{{ forloop.counter }}"></span>
                                             </td>
                                             <td>
+                                                <span id="peso_{{ forloop.counter }}"></span>
+                                            </td>
+                                            <td>
                                                 <span id="id_resultado_questao_{{ forloop.counter }}"></span>
                                             </td>
                                         </tr>
                                     {% endfor %}
                                     <tr>
-                                        <td colspan="3" style="text-align: right;"><strong>Total:</strong></td>
+                                        <td colspan="4" style="text-align: right;"><strong>Total:</strong></td>
                                         <td style="text-align: right;"><strong>{{ alunosessao.media }}</strong></td>
                                     </tr>
                                     </tbody>
@@ -92,16 +99,18 @@
         window.onload = function () {
             let total = {{ questionario.quantidade_questoes }};
             let quest_alternativas = document.getElementById('quest_alternativas').textContent;
+            let pesos_alternativas = document.getElementById('pesos_alternativas').textContent;
             let aluno_alternativas = document.getElementById('aluno_alternativas').textContent;
             let aluno_pontuacao = document.getElementById('aluno_pontuacao').textContent;
             populaRespostas('id_questao_', quest_alternativas.replace(/\s/g, ''), false);
+            populaRespostas('peso_', pesos_alternativas.replace(/\s/g, ''), false);
             populaRespostas('id_aluno_questao_', aluno_alternativas.replace(/\s/g, ''), false);
             populaRespostas('id_resultado_questao_', aluno_pontuacao.replace(/\s/g, ''), true);
 
             function populaRespostas(id_form, descricaoAlternativas, isNumber) {
                 let alternativas = descricaoAlternativas.split(";");
                 for (let i = 1; i <= total; i++) {
-                    document.getElementById(id_form + i).innerHTML = alternativas[i - 1] || ((isNumber) ? 0 : "");
+                    document.getElementById(id_form + i).innerHTML = alternativas[i - 1] || ((isNumber) ? 0 : "EM BRANCO OU RASURADA");
                 }
             }
         };
