@@ -85,22 +85,23 @@
                                         <td>{{ alunoSessao.aluno.nome }}</td>
                                         <td>{{ alunoSessao.media }}</td>
                                         <td style="text-align: center">
+                                            <a href="{% url 'sessao-aluno-details' alunoSessao.sessao.pk alunoSessao.pk %}"
+                                                title="Detalhar" style="color:#0EAF50">
+                                                <i class="fas fa-lg fa-search-plus"></i>
+                                             </a>
                                             <a href="{% url 'sessao-evaluate' alunoSessao.sessao.pk alunoSessao.pk %}"
                                                title="Avaliar" style="color:#0EAF50">
                                                 <i class="fas fa-lg fa-clipboard-check"></i>
                                             </a>
-                                            <a href="{% url 'sessao-aluno-details' alunoSessao.sessao.pk alunoSessao.pk %}"
-                                               title="Detalhar" style="color:#E70000">
-                                                <i class="fas fa-lg fa-search-plus"></i>
-                                            </a>
+                                           
                                             <a href="#"
                                                onclick="abrirArquivoIndividual({{ alunoSessao.sessao.pk }}, {{ alunoSessao.pk }})"
                                                title="Anexar Gabarito" style="color:#0EAF50">
-                                                <i class="fas fa-lg fa-book"></i>
+                                                <i class="fas fa-lg fa-paperclip"></i>
                                             </a>
                                             <a href="#" onclick="enviar('uploadArquivoIndividual')"
-                                               title="Submeter Gabarito" style="color:#0EAF50">
-                                                <i class="fas fa-lg fa-book"></i>
+                                               title="Submeter Gabarito" style="color:#08c">
+                                                <i class="fas fa-lg fa-upload"></i>
                                             </a>
                                         </td>
                                     </tr>
